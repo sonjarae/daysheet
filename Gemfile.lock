@@ -121,7 +121,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (12.1.0)
+    rake (10.5.0)
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
@@ -202,6 +202,7 @@ DEPENDENCIES
   pg (~> 0.18)
   puma (~> 3.7)
   rails (~> 5.1.1)
+  rake (< 11.0)
   rspec-rails (~> 3.0.0.beta)
   sass-rails (~> 5.0)
   selenium-webdriver
@@ -216,4 +217,4 @@ RUBY VERSION
    ruby 2.4.0p0
 
 BUNDLED WITH
-   1.15.2
+   1.16.0.pre.3

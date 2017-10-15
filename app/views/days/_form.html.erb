@@ -1,0 +1,52 @@
+<%= form_with(model: day, local: true) do |form| %>
+  <% if day.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(day.errors.count, "error") %> prohibited this day from being saved:</h2>
+
+      <ul>
+      <% day.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_select :date, id: :day_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tour_id %>
+    <%= form.number_field :tour_id, id: :day_tour_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :venue_id %>
+    <%= form.number_field :venue_id, id: :day_venue_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :schedule_id %>
+    <%= form.number_field :schedule_id, id: :day_schedule_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :income_id %>
+    <%= form.number_field :income_id, id: :day_income_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :show_number %>
+    <%= form.number_field :show_number, id: :day_show_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :show_status %>
+    <%= form.text_field :show_status, id: :day_show_status %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

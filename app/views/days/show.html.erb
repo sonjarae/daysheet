@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @day.date %>
+</p>
+
+<p>
+  <strong>Tour:</strong>
+  <%= @day.tour_id %>
+</p>
+
+<p>
+  <strong>Venue:</strong>
+  <%= @day.venue_id %>
+</p>
+
+<p>
+  <strong>Schedule:</strong>
+  <%= @day.schedule_id %>
+</p>
+
+<p>
+  <strong>Income:</strong>
+  <%= @day.income_id %>
+</p>
+
+<p>
+  <strong>Show number:</strong>
+  <%= @day.show_number %>
+</p>
+
+<p>
+  <strong>Show status:</strong>
+  <%= @day.show_status %>
+</p>
+
+<%= link_to 'Edit', edit_day_path(@day) %> |
+<%= link_to 'Back', days_path %>
