@@ -1,39 +1,69 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Days</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Tour</th>
-      <th>Venue</th>
-      <th>Schedule</th>
-      <th>Income</th>
-      <th>Show number</th>
-      <th>Show status</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @days.each do |day| %>
-      <tr>
-        <td><%= day.date %></td>
-        <td><%= day.tour_id %></td>
-        <td><%= day.venue_id %></td>
-        <td><%= day.schedule_id %></td>
-        <td><%= day.income_id %></td>
-        <td><%= day.show_number %></td>
-        <td><%= day.show_status %></td>
-        <td><%= link_to 'Show', day %></td>
-        <td><%= link_to 'Edit', edit_day_path(day) %></td>
-        <td><%= link_to 'Destroy', day, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Day', new_day_path %>
+<!DOCTYPE html>
+<html>
+<head>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <!--[if lt IE 9]>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+  </script>
+<![endif]-->
+</head>
+<body>
+  <header class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+        <%= link_to "DaySheet", '#', id: "logo" %>
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Home",   '#' %></li>
+            <li><%= link_to "Help",   '#' %></li>
+            <li><%= link_to "Log in", '#' %></li>
+          </ul>
+        </nav>
+      </div>
+  </header>
+  <h2>Current Tour: Name</h2>
+  <div class="container" id="metrics">
+      <h3>Income this tour:</h3>
+      <h3>Shows this tour:</h3>
+      <h3>Avg Attendance:</h3>
+      <h3>High Attendance:</h3>
+      <h3>Low Attendance:</h3>
+    </div>
+  <div class="container">
+    <p id="notice"><%= notice %></p>
+    <h2>Upcoming Dates</h2>
+     <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Tour</th>
+            <th>Venue</th>
+            <th>Schedule</th>
+            <th>Income</th>
+            <th>Show number</th>
+            <th>Show status</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @upcoming_days.each do |day| %>
+            <tr>
+              <td><%= day.date %></td>
+              <td><%= link_to "Tour", '#' %></td><!--tour_id-->
+              <td><%= link_to "Venue", '#' %></td><!--venue_id-->
+              <td><%= link_to "Schedule", '#' %></td><!--schedule_id-->
+              <td><%= link_to "Income", '#' %></td><!--income_id-->
+              <td><%= day.show_number %></td><!--show_number-->
+              <td><%= day.show_status %></td><!--show_status-->
+              <td><%= link_to 'View', day %></td>
+            </tr>
+          <% end %>
+        </tbody>
+    </table>
+    <br>
+    <%= link_to 'New Day', new_day_path %>
+  </div>
+</body>
+</html>

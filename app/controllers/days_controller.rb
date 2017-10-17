@@ -5,6 +5,7 @@ class DaysController < ApplicationController
   # GET /days.json
   def index
     @days = Day.all
+    @upcoming_days = Day.where( 'days.created_at BETWEEN ? AND ?', 2.month.ago, 1.month.from_now ).all
   end
 
   # GET /days/1
