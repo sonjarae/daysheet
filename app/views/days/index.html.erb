@@ -18,16 +18,10 @@
           <ul class="nav navbar-nav navbar-right">
             <li><%= link_to "Home",   '#' %></li>
             <li><%= link_to "Help",   '#' %></li>
-            <li>
-            <div id="user-widget">
-              <% if current_user %>
-                Welcome <strong><%= current_user.name %></strong>!
-                <%= link_to "Sign out", signout_path, id: "sign_out" %>
-              <% else %>
-                <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
-              <% end %>
-            </div>
-            </li>
+            <fb:login-button 
+              scope="public_profile,email"
+              onlogin="checkLoginState();">
+            </fb:login-button>
           </ul>
         </nav>
       </div>
