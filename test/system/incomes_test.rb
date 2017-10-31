@@ -1,6 +1,7 @@
-require "application_system_test_case"
+#require "application_system_test_case"
+#< ApplicationSystemTestCase
 
-class IncomesTest < ApplicationSystemTestCase
+class IncomesTest
   # test "visiting the index" do
   #   visit incomes_url
   #

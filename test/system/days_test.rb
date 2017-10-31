@@ -1,6 +1,7 @@
 #require "application_system_test_case"
+#< ApplicationSystemTestCase
 
-class DaysTest < ApplicationSystemTestCase
+class DaysTest 
   # test "visiting the index" do
   #   visit days_url
   #
