@@ -1,19 +1,33 @@
-<p id="notice"><%= notice %></p>
+<!DOCTYPE html>
+<html>
+<head>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <!--[if lt IE 9]>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+  </script>
+<![endif]-->
+</head>
+<body>
+  <p id="notice"><%= notice %></p>
+	<p>
+	  <h2> <%= @tour_status %> </b> <h2>
+	  <strong>Name:</strong>
+	  <%= @tour.name %>
+	</p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @tour.name %>
-</p>
+	<p>
+	  <strong>Start date:</strong>
+	  <%= @tour.start_date %>
+	</p>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @tour.start_date %>
-</p>
+	<p>
+	  <strong>End date:</strong>
+	  <%= @tour.end_date %>
+	</p>
 
-<p>
-  <strong>End date:</strong>
-  <%= @tour.end_date %>
-</p>
-
-<%= link_to 'Edit', edit_tour_path(@tour) %> |
-<%= link_to 'Back', tours_path %>
+	<%= link_to 'Edit', edit_tour_path(@tour) %> |
+	<%= link_to 'Back', tours_path %>
+</body>
+</html>

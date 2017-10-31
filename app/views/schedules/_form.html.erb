@@ -16,6 +16,16 @@
     <%= form.datetime_select :load_in_time, id: :schedule_load_in_time %>
   </div>
 
+  <div class="field">
+    <%= form.label :tour_id %>
+    <%= form.number_field :tour_id, id: :schedule_tour_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :day_id %>
+    <%= form.number_field :day_id, id: :schedule_day_id %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

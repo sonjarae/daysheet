@@ -1,13 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <!--[if lt IE 9]>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+  </script>
+<![endif]-->
+</head>
+<body>
 <p id="notice"><%= notice %></p>
-
 <h1>Tours</h1>
-
 <table>
   <thead>
     <tr>
       <th>Name</th>
       <th>Start date</th>
       <th>End date</th>
+      <th>Active</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,14 +29,29 @@
         <td><%= tour.name %></td>
         <td><%= tour.start_date %></td>
         <td><%= tour.end_date %></td>
+        <td><%= tour.active %></td>
+        <!--
+          t.string "name"
+          t.date "start_date"
+          t.date "end_date"
+          t.text "description"
+          t.datetime "available_since"
+          t.boolean "active"
+          t.binary "image"
+          t.datetime "created_at", null: false
+          t.datetime "updated_at", null: false
+          t.integer "day_id"
+          t.integer "user_id"
+          t.integer "income_id"
+        -->
         <td><%= link_to 'Show', tour %></td>
         <td><%= link_to 'Edit', edit_tour_path(tour) %></td>
-        <td><%= link_to 'Destroy', tour, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', tour, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
 <br>
-
 <%= link_to 'New Tour', new_tour_path %>
+</body>
+</html>

@@ -8,7 +8,6 @@ class CreateTours < ActiveRecord::Migration[5.1]
       t.datetime :available_since
       t.boolean :active
       t.binary :image
-      t.user_id :booking_agent
 
       t.timestamps
     end

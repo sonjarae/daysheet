@@ -10,33 +10,64 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171015031649) do
+ActiveRecord::Schema.define(version: 20171029193732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "days", force: :cascade do |t|
     t.date "date"
-    t.integer "show_number"
-    t.string "show_status"
+    t.integer "day_of_tour"
     t.integer "tour_id"
     t.integer "venue_id"
     t.integer "schedule_id"
     t.integer "income_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "guest_list"
   end
 
   create_table "incomes", force: :cascade do |t|
     t.decimal "guarantee"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "tour_name"
+    t.integer "user_id"
+    t.integer "day_id"
+    t.integer "attendance_paid"
+    t.integer "attendance_total"
+    t.integer "attendance_comped"
+    t.decimal "ticket_price"
+    t.decimal "band_end_min"
+    t.decimal "band_end_perc"
+    t.decimal "band_end_dollar"
+    t.decimal "potential_dollar"
+    t.decimal "bonus"
+    t.string "bonus_notes"
+    t.decimal "club_expenses"
+    t.string "club_expenses_notes"
+    t.decimal "merch_income"
+    t.decimal "total_income"
+    t.decimal "other_income"
+    t.decimal "other_expenses"
+    t.string "notes"
   end
 
   create_table "schedules", force: :cascade do |t|
     t.datetime "load_in_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "sound_check_time"
+    t.datetime "doors_time"
+    t.datetime "set_time"
+    t.datetime "bus_call_am"
+    t.datetime "bus_call_hotel"
+    t.integer "time_between_bands_calc"
+    t.string "notes"
+    t.string "show_number"
+    t.string "show_status"
+    t.integer "day_id"
+    t.integer "tour_id"
   end
 
   create_table "tours", force: :cascade do |t|
@@ -49,12 +80,19 @@ ActiveRecord::Schema.define(version: 20171015031649) do
     t.binary "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "day_id"
+    t.integer "user_id"
+    t.integer "income_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "role"
+    t.string "provider"
+    t.string "uid"
+    t.string "oauth_token"
+    t.datetime "oauth_expires_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

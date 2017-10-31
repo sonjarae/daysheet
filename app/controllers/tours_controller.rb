@@ -10,6 +10,11 @@ class ToursController < ApplicationController
   # GET /tours/1
   # GET /tours/1.json
   def show
+    if @tour.active = true
+      @tour_status = "Active Tour" 
+    else
+      @tour_status = "Inactive Tour" 
+    end
   end
 
   # GET /tours/new
@@ -69,6 +74,6 @@ class ToursController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tour_params
-      params.require(:tour).permit(:name, :start_date, :end_date)
+      params.require(:tour).permit(:name, :start_date, :end_date, :active)
     end
 end

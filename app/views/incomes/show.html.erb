@@ -1,9 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <h1> Income </h1>
+  <strong>Tour:</strong>
+  <%= @income.tour_name %>
+</p>
+
+<p>
   <strong>Guarantee:</strong>
   <%= @income.guarantee %>
 </p>
+
 
 <%= link_to 'Edit', edit_income_path(@income) %> |
 <%= link_to 'Back', incomes_path %>

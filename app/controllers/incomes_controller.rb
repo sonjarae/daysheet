@@ -5,26 +5,34 @@ class IncomesController < ApplicationController
   # GET /incomes.json
   def index
     @incomes = Income.all
+    @tours = Tour.all 
+    @incomes = Income.all 
   end
 
   # GET /incomes/1
   # GET /incomes/1.json
   def show
+    #income = Income.find(params[:id])
+    #day = Day.where(:id => income.day_id) 
+    #@venue = Venue.where(:id => day.venue_id) 
   end
 
   # GET /incomes/new
   def new
     @income = Income.new
+    
   end
 
   # GET /incomes/1/edit
   def edit
+
   end
 
   # POST /incomes
   # POST /incomes.json
   def create
-    @income = Income.new(income_params)
+    @income = Income.find_by_Id
+
 
     respond_to do |format|
       if @income.save
@@ -69,6 +77,6 @@ class IncomesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def income_params
-      params.require(:income).permit(:guarantee)
+      params.require(:income).permit(:guarantee, :tour_name, :day_id)
     end
 end

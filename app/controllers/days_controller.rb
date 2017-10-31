@@ -5,7 +5,9 @@ class DaysController < ApplicationController
   # GET /days.json
   def index
     @days = Day.all
-    @upcoming_days = Day.where( 'days.created_at BETWEEN ? AND ?', 2.month.ago, 1.month.from_now ).all
+    @incomes = Income.all 
+    @recent_days = Day.where( 'days.created_at BETWEEN ? AND ?', 4.month.ago, 2.month.from_now ).order('date DESC').first(10)
+    @days_num = Day.distinct.count('id')
   end
 
   # GET /days/1
