@@ -33,12 +33,14 @@
       <h3>Metrics:</h3>
       <ul>
         <li><%= @days_num %> days this tour </li>
+        <!--
         <li><%= @schedule_num %> shows this tour </li>
         <li><%= @shows_played_this_tour %> shows played</li>
         <li><%= @shows_left_this_tour %> shows remaining </li> 
         <li>Average Attendance:</li>
         <li>Highest Attendance:</li>
         <li>Lowest Attendance:</li>
+        -->
       </ul>
     </div>
     <div class ="container" id="shows">
@@ -48,11 +50,7 @@
             <tr>
               <th>Date</th>
               <th>Tour</th>
-              <th>Venue</th>
-              <th>Schedule</th>
-              <th>Income</th>
               <th>Show number</th>
-              <th>Show status</th>
               <th colspan="3"></th>
             </tr>
           </thead>
@@ -60,11 +58,8 @@
             <% @recent_days.each do |day| %>
               <tr>
                 <td><%= day.date %></td>
-                <td><%= this_tour(day.tour_id) %></td><!--tour_id-->
-                <td><%= link_to "Venue", '#' %></td><!--venue_id-->
-                <td><%= link_to "Schedule", '#' %></td><!--schedule_id-->
-                <td><%= link_to "Income", '#' %></td><!--income_id-->
-                <td><%= day.day_of_tour %></td><!--day num-->
+                <td><%= this_tour(day.tour_id)%></td>
+                <td><%= day.day_of_tour %></td>
                 <td><%= link_to 'View', day %></td>
               </tr>
             <% end %>

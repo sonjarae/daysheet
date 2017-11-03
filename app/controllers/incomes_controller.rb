@@ -6,7 +6,6 @@ class IncomesController < ApplicationController
   def index
     @incomes = Income.all
     @tours = Tour.all 
-    @incomes = Income.all 
   end
 
   # GET /incomes/1

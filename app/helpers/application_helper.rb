@@ -3,6 +3,10 @@ module ApplicationHelper
 	def this_tour(id)
 		Tour.find(id).name
 	end
+
+	def get_venue_by_id(id)
+		Venue.find(id).name
+	end
 	
 	def get_metrics
 		id = Tour.where("Active != TRUE").first.id

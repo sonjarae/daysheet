@@ -19,21 +19,14 @@ ActiveRecord::Schema.define(version: 20171029193732) do
     t.date "date"
     t.integer "day_of_tour"
     t.integer "tour_id"
-    t.integer "venue_id"
-    t.integer "schedule_id"
-    t.integer "income_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "guest_list"
   end
 
   create_table "incomes", force: :cascade do |t|
     t.decimal "guarantee"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "tour_name"
-    t.integer "user_id"
-    t.integer "day_id"
     t.integer "attendance_paid"
     t.integer "attendance_total"
     t.integer "attendance_comped"
@@ -51,6 +44,8 @@ ActiveRecord::Schema.define(version: 20171029193732) do
     t.decimal "other_income"
     t.decimal "other_expenses"
     t.string "notes"
+    t.integer "schedule_id"
+    t.integer "tour_id"
   end
 
   create_table "schedules", force: :cascade do |t|
@@ -68,6 +63,9 @@ ActiveRecord::Schema.define(version: 20171029193732) do
     t.string "show_status"
     t.integer "day_id"
     t.integer "tour_id"
+    t.integer "venue_id"
+    t.string "guest_list"
+    t.integer "income_id"
   end
 
   create_table "tours", force: :cascade do |t|

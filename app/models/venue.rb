@@ -1,3 +1,3 @@
 class Venue < ApplicationRecord
-	has_many :days
+	has_many :schedules
 end

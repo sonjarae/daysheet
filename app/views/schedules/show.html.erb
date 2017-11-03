@@ -8,9 +8,25 @@
   <strong>Tour:</strong>
   <%= @schedule.tour_id %>
 </p>
+
 <p>
-  <strong>Load in time:</strong>
-  <%= @schedule.load_in_time %>
+  <strong>Venue:</strong>
+  <%= @schedule.venue_id %>
+</p>
+
+<p>
+  <strong>Income:</strong>
+  <%= @schedule.income_id %>
+</p>
+
+<p>
+  <strong>Show number:</strong>
+  <%= @schedule.show_number %>
+</p>
+
+<p>
+  <strong>Show status:</strong>
+  <%= @schedule.show_status %>
 </p>
 
 <%= link_to 'Edit', edit_schedule_path(@schedule) %> |
