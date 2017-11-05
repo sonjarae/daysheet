@@ -7,7 +7,7 @@ end
 
 ruby '2.4.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'bundler', '1.16.0.pre.3'
+gem 'bundler', '1.15.2'
 
 gem 'rails', '~> 5.1.1'
 # Use postgresql as the database for Active Record
