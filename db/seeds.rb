@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'date'
 
 tours = Tour.create([{name:'SNST Winter 2017',start_date: Date.today,end_date: Date.today+15},{name:'SNST Spring 2018',start_date: Date.today+60,end_date: Date.today+90}])
 tour = tours.first
@@ -17,7 +18,22 @@ tour = tours.first
 	p ven
 
 	day_num = Date.today+ind
-	day = Day.create(date:day_num, tour_id: tour.id)
+	bus_call_str = day_num.to_s + " 09:00:00 +0100"
+	hotel_call_str = day_num.to_s + " 23:00:30 +0100"
+
+	day = Day.create(
+		date: day_num, 
+		tour_id: tour.id,
+		city: "Chicago",
+		bus_call_am: Time.parse(bus_call_str),
+		bus_call_hotel: Time.parse(hotel_call_str),
+		notes: "notes \n\n notes \n\n notes\n\n ",
+		per_diem_exp: 20.00,
+		gas_exp: 25.00,
+		hotel_exp: 90.00,
+		other_expenses: 50.00
+	)
+
 	p day
 
 	show_status = ''

@@ -5,9 +5,11 @@ class DaysController < ApplicationController
   # GET /days.json
   def index
     @days = Day.all
-    @incomes = Income.all 
     @recent_days = Day.where( 'days.created_at BETWEEN ? AND ?', 4.month.ago, 2.month.from_now ).order('date DESC').first(10)
     @days_num = Day.distinct.count('id')
+    @current_tour = Tour.where( 'tours.end_date BETWEEN ? AND ?', Date.today, 1.month.from_now ).order('start_date DESC').first
+    @days_for_tour = Tour.joins(:days).where(:days => {:tour_id => @current_tour.id})
+    @incomes = Income.all 
   end
 
   # GET /days/1
@@ -72,6 +74,6 @@ class DaysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def day_params
-      params.require(:day).permit(:date, :tour_id, :venue_id, :schedule_id, :income_id, :show_number, :show_status)
+      params.require(:day).permit(:date, :tour_id, :notes, :city, :day_of_tour, :bus_call_hotel, :bus_call_am)
     end
 end

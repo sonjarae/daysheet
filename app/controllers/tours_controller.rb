@@ -4,9 +4,12 @@ class ToursController < ApplicationController
   # GET /tours
   # GET /tours.json
   def index
+    p "in tours_controller"
     @tours = Tour.all
+    @current_tour = Tour.where( 'tours.end_date BETWEEN ? AND ?', Date.today, 1.month.from_now ).order('start_date DESC').first
+    @days = Day.where(' days.tour_id = ' + @current_tour.id.to_s).order('date ASC').first(5)
   end
-
+  
   # GET /tours/1
   # GET /tours/1.json
   def show

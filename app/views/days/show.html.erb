@@ -6,10 +6,55 @@
 </p>
 
 <p>
+  <strong>City:</strong>
+  <%= @day.city %>
+</p>
+
+<p>
   <strong>Tour:</strong>
   <%= this_tour(@day.tour_id) %>
 </p>
 
+<p>
+  <strong>Bus Call AM:</strong>
+  <%= @day.bus_call_am %>
+</p>
 
+<p>
+  <strong>Bus Call Hotel:</strong>
+  <%= @day.bus_call_hotel %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @day.notes %>
+</p>
+
+<p>
+  <span>
+  	Created at: <%= @day.created_at %>
+  </span>
+  <br>
+  <span>
+  	Updated at: <%= @day.updated_at %>
+  </span>
+</p>
 <%= link_to 'Edit', edit_day_path(@day) %> |
 <%= link_to 'Back', days_path %>
+<!--
+
+  <p>
+  <strong>Expenses:</strong>
+  Per Diem: <%= @day.per_diem_exp %>
+  Gas: <%= @day.gas_exp %>
+  Hotel: <%= @day.hotel_exp %>
+  Other Expenses: <%= @day.other_expenses %>
+</p>
+<p>
+  <strong>Times:</strong>
+  Bus Call (AM): <%= @day.bus_call_am %>
+  Bus Call (Hotel): <%= @day.bus_call_hotel %>
+</p>
+
+
+-->

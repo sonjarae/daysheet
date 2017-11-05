@@ -2,7 +2,6 @@
   <% if day.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(day.errors.count, "error") %> prohibited this day from being saved:</h2>
-
       <ul>
       <% day.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -22,29 +21,36 @@
   </div>
 
   <div class="field">
-    <%= form.label :venue_id %>
-    <%= form.number_field :venue_id, id: :day_venue_id %>
+    <%= form.label :city %>
+    <%= form.text_field :city, id: :day_city %>
   </div>
 
   <div class="field">
-    <%= form.label :schedule_id %>
-    <%= form.number_field :schedule_id, id: :day_schedule_id %>
+    <%= form.label :bus_call_am %>
+    <%= form.datetime_field :bus_call_am, id: :day_bus_call_am %>
   </div>
 
   <div class="field">
-    <%= form.label :income_id %>
-    <%= form.number_field :income_id, id: :day_income_id %>
+    <%= form.label :bus_call_hotel %>
+    <%= form.datetime_field :bus_call_hotel, id: :day_bus_call_hotel%>
   </div>
 
   <div class="field">
-    <%= form.label :show_number %>
-    <%= form.number_field :show_number, id: :day_show_number %>
+    <%= form.label :notes %>
+    <%= form.text_field :notes, id: :day_notes %>
   </div>
 
-  <div class="field">
-    <%= form.label :show_status %>
-    <%= form.text_field :show_status, id: :day_show_status %>
-  </div>
+  <!--
+
+    t.decimal "hotel_expenses"
+    t.decimal "other_expenses"
+    t.decimal "per_diem_exp"
+    t.decimal "gas_exp"
+    t.decimal "hotel_exp"
+
+    t.datetime "bus_call_am"
+    t.datetime "bus_call_hotel"
+  -->
 
   <div class="actions">
     <%= form.submit %>

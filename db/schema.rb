@@ -17,10 +17,17 @@ ActiveRecord::Schema.define(version: 20171029193732) do
 
   create_table "days", force: :cascade do |t|
     t.date "date"
-    t.integer "day_of_tour"
     t.integer "tour_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "other_expenses"
+    t.datetime "bus_call_am"
+    t.datetime "bus_call_hotel"
+    t.string "notes"
+    t.decimal "per_diem_exp"
+    t.decimal "gas_exp"
+    t.decimal "hotel_exp"
+    t.string "city"
   end
 
   create_table "incomes", force: :cascade do |t|
@@ -55,8 +62,6 @@ ActiveRecord::Schema.define(version: 20171029193732) do
     t.datetime "sound_check_time"
     t.datetime "doors_time"
     t.datetime "set_time"
-    t.datetime "bus_call_am"
-    t.datetime "bus_call_hotel"
     t.integer "time_between_bands_calc"
     t.string "notes"
     t.string "show_number"
@@ -81,6 +86,11 @@ ActiveRecord::Schema.define(version: 20171029193732) do
     t.integer "day_id"
     t.integer "user_id"
     t.integer "income_id"
+    t.decimal "per_diem_budget"
+    t.decimal "gas_budget"
+    t.decimal "hotel_budget"
+    t.string "region"
+    t.decimal "est_income"
   end
 
   create_table "users", force: :cascade do |t|
