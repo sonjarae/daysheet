@@ -13,6 +13,7 @@
   </head>
 <body>
 <header>
+  <form>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#">Daysheet</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,13 +30,10 @@
         <li class="nav-item">
           <a class="nav-link" href="<%= new_tour_path %>">New Tour</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="/tours/#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tours</a>
-          <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <% @tours.each do |tour| %>
-            <a class="dropdown-item" href="/tours/<%= tour.id %>"><%= tour.name %> </a>
-          <% end %>
-          </div>
+        <li class="nav-item dropdown" >
+        <%= form_for @tour do |f| %>
+          <div onchange="callajax()"> <%= f.collection_select(:id, Tour.all, :id, :name, :prompt => 'Select' ) %></div>
+        <% end %>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
@@ -49,68 +47,25 @@
       </form>
     </div>
   </nav>
+ </form>
 </header><!-- /.navigation-->
 
-<main role="main" class="container">
-  <p id="notice"><%= notice %></p>  
-  <div class="starter-template">
-    <h1><%= @current_tour.name %></h1>
-    <p class="lead"> Tour Metrics </p>  
-
-    <!--  Display Days for the selected tour -->
-    <table> <!-- start table -->
-      <thead>
-        <tr>
-          <th>Day</th>
-          <th>Date</th>
-          <th>City</th>
-          <th>Bus Call</th>
-          <th>Hotel Call</th>
-          <th>Notes</th>
-           <th colspan="5"></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @days.each do |d| %>
-          <tr>
-            <td><%= day_of_tour(d.date, @current_tour.start_date) %></td>
-            <td><%= d.date %></td>
-            <td><%= d.city %></td>
-            <td><%= d.bus_call_am %></td>
-            <td><%= d.bus_call_hotel %></td>
-            <td><%= d.notes %></td>
-            <td><%= link_to 'Expand', '/#' %></td>
-
-           <!-- start inner query -->
-           <% schedules_for_day(d.id).each do |s| %>
-              <% if Schedule.where(day_id: d.id).exists? %>
-               <tr>
-                <td>
-                   </td>
-                <td>
-                  </td>
-              <% else %>
-               <div class="row">  
-                <td>
-                  <strong>No schedules for this day</strong>
-                </td>
-               </div>
-               </tr>
-              <% end %>
-            <% end %>
-            <!-- end inner query -->  
-
-          <% end %>  <!-- close original loop --> 
-        </tr>
-      </tbody>
-    </table> <!-- end table -->
-
-  </div>
-</main>
-<!-- /.container -->
-
 </body>
+<script >
+
+function callajax () {
+  alert("hi");
+
+  jQuery.ajax({
+    data: 'id=' + id,
+    dataType: 'script',
+    type: 'post',
+    url: "/controller/action"
+  });
+}
+
+
+</script>
 </html>
 
 <!--

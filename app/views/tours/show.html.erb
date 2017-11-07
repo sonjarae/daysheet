@@ -1,33 +1,142 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <%= csrf_meta_tags %>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  <!--[if lt IE 9]>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
-  </script>
-<![endif]-->
-</head>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Daysheet">
+    <meta name="author" content="Sonja Broach">
+    <%= csrf_meta_tags %>
+    <title>Daysheet</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  </head>
 <body>
-  <p id="notice"><%= notice %></p>
-	<p>
-	  <h2> <%= @tour_status %> </b> <h2>
-	  <strong>Name:</strong>
-	  <%= @tour.name %>
-	</p>
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Daysheet</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/venues/#">Venues</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= new_tour_path %>">New Tour</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="/tours/#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tours</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+          <% @tours.each do |tour| %>
+            <a class="dropdown-item" href="/tours/<%= tour.id %>"><%= tour.name %> </a>
+          <% end %>
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <li>
+          <fb:login-button 
+            scope="public_profile,email"
+            onlogin="checkLoginState();">
+          </fb:login-button>
+        </ul>
+        </li>
+      </form>
+    </div>
+  </nav>
+</header><!-- /.navigation-->
 
-	<p>
-	  <strong>Start date:</strong>
-	  <%= @tour.start_date %>
-	</p>
+<main role="main" class="container">
+  <p id="notice"><%= notice %></p>  
+  <div class="starter-template">
+    <h1><%= @tour.name %></h1>
+    <p class="lead"> Tour Metrics </p>  
 
-	<p>
-	  <strong>End date:</strong>
-	  <%= @tour.end_date %>
-	</p>
+    <!--  Display Days for the selected tour -->
+    <table> <!-- start table -->
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Date</th>
+          <th>City</th>
+          <th>Bus Call</th>
+          <th>Hotel Call</th>
+          <th>Notes</th>
+           <th colspan="5"></th>
+        </tr>
+      </thead>
 
-	<%= link_to 'Edit', edit_tour_path(@tour) %> |
-	<%= link_to 'Back', tours_path %>
+      <tbody>
+        <% @days.each do |d| %>
+          <tr>
+            <td><%= day_of_tour(d.date, @tour.start_date) %></td>
+            <td><%= d.date %></td>
+            <td><%= d.city %></td>
+            <td><%= d.bus_call_am %></td>
+            <td><%= d.bus_call_hotel %></td>
+            <td><%= d.notes %></td>
+            <td><%= link_to 'Expand', '/#' %></td>
+
+           <!-- start inner query -->
+           <% schedules_for_day(d.id).each do |s| %>
+              <% if Schedule.where(day_id: d.id).exists? %>
+               <tr>
+                <td>
+                   </td>
+                <td>
+                  </td>
+              <% else %>
+               <div class="row">  
+                <td>
+                  <strong>No schedules for this day</strong>
+                </td>
+               </div>
+               </tr>
+              <% end %>
+            <% end %>
+            <!-- end inner query -->  
+
+          <% end %>  <!-- close original loop --> 
+        </tr>
+      </tbody>
+    </table> <!-- end table -->
+
+  </div>
+</main>
+<!-- /.container -->
+
 </body>
 </html>
+
+<!--
+   t.decimal "hotel_expenses"
+    t.decimal "other_expenses"
+    t.string "notes"
+    t.decimal "per_diem_exp"
+    t.decimal "gas_exp"
+    t.decimal "hotel_exp"
+
+
+      t.string "name"
+    t.date "start_date"
+    t.date "end_date"
+    t.text "description"
+    t.datetime "available_since"
+    t.boolean "active"
+    t.binary "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "day_id"
+    t.integer "user_id"
+    t.integer "income_id"
+    t.decimal "per_diem_budget"
+    t.decimal "gas_budget"
+    t.decimal "hotel_budget"
+    t.string "region"
+    t.decimal "est_income"
+  -->

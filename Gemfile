@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 git_source(:github) do |repo_name|
   repo_name = "sonjarae/daysheet" unless repo_name.include?("/")
@@ -7,7 +7,7 @@ end
 
 ruby '2.4.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'bundler', '1.15.2'
+gem 'bundler', '1.16.0'
 
 gem 'rails', '~> 5.1.1'
 # Use postgresql as the database for Active Record
