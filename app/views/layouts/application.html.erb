@@ -8,7 +8,48 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+  <header>
+	<form>
+	  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+	    <a class="navbar-brand" href="#">Daysheet</a>
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+	      <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+	      <ul class="navbar-nav mr-auto">
+	        <li class="nav-item active">
+	          <a class="nav-link" href="#">Tours 
+	            <span class="sr-only">(current)</span></a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="/venues/#">Venues</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="<%= "/days/#" %>">Days</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="<%= "/schedules/#" %>">Shows</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="<%= "/incomes/#" %>">Settlements</a>
+	        </li>
+	      </ul>
+	      <form class="form-inline my-2 my-lg-0">
+	        <li>
+	          <fb:login-button 
+	            scope="public_profile,email"
+	            onlogin="checkLoginState();">
+	          </fb:login-button>
+	        </ul>
+	        </li>
+	      </form>
+	    </div>
+	  </nav>
+	</form>
+ </header>
+
   <body>
     <%= yield %>
   </body>
+
 </html>

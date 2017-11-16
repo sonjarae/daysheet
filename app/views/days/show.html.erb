@@ -1,60 +1,94 @@
-<p id="notice"><%= notice %></p>
+<!doctype html>
+<html lang="en">
+<body>
+<main role="main" class="container">
+  <p id="notice"><%= notice %></p>  
+  <div class="starter-template">
+    <center><p class="lead"><%= @day.date %></p></center> 
+    <h1><%= @tour.name %></h1>
+    <!-- Days for Tour -->
+    <table>
+      <thead>
+        <tr>
+          <th>Venue</th>
+          <th>Show Number</th>
+          <th>Show Status</th>
+          <th>Load In</th>
+          <th>Sound Check</th>
+          <th>Doors</th>
+          <th>Set Time</th>
+          <th>Guest List</th>
+          <th colspan="5"></th>
+        </tr>
+      </thead>
+      <form>
+        <tbody>
+          <% @schedules.each do |s| %>
+            <%= form_for s do |f| %>
+              <tr>
+                <% p "schedule: " + s.show_status %>
+                <td><% venue(s.venue_id).name %></td>
+                <td><%= s.show_number %></td>
+                <td id="sch_show_status" data-type="text" data-resource="post" data-name="show_status" data-url="controller/action/<%= s.id %>" data-original-title="Show Status">  
+                  <%= f.text_field :show_status %>
+                </td>
+                <td><%= s.load_in_time %></td>
+                <td><%= s.sound_check_time %></td>
+                <td><%= s.doors_time %></td>
+                <td><%= s.set_time %></td>
+                <td><%= s.guest_list %></td>
+                <td class="actions" onclick="refresh();" >
+                  <%= f.submit %>
+                </td>
+              </tr>
+            <% end %> 
+          <% end %> 
+        </tbody>
+      </form>
+    </table> 
+    <!-- /. table -->
+  </div>
+</main>
+<!-- /.container -->
+</body>
+</html>
+<script >
+  function refresh{
+    location.reload();
+  }
+</script>
 
-<p>
-  <strong>Date:</strong>
-  <%= @day.date %>
-</p>
+      <!-- . 
+      Schedules
+      t.integer "time_between_bands_calc"
+      t.string "notes"
 
-<p>
-  <strong>City:</strong>
-  <%= @day.city %>
-</p>
+      Income 
+      
+      Add to table 
 
-<p>
-  <strong>Tour:</strong>
-  <%= this_tour(@day.tour_id) %>
-</p>
+        t.decimal "guarantee"
+        t.datetime "created_at", null: false
+        t.datetime "updated_at", null: false
+        t.integer "attendance_paid"
+        t.integer "attendance_total"
+        t.integer "attendance_comped"
+        t.decimal "ticket_price"
+        t.decimal "band_end_min"
+        t.decimal "band_end_perc"
+        t.decimal "band_end_dollar"
+        t.decimal "potential_dollar"
+        t.decimal "bonus"
+        t.string "bonus_notes"
+        t.decimal "club_expenses"
+        t.string "club_expenses_notes"
+        t.decimal "merch_income"
+        t.decimal "total_income"
+        t.decimal "other_income"
+        t.decimal "other_expenses"
+        t.string "notes"
+        t.integer "schedule_id"
+        t.integer "tour_id"
 
-<p>
-  <strong>Bus Call AM:</strong>
-  <%= @day.bus_call_am %>
-</p>
+            . -->
 
-<p>
-  <strong>Bus Call Hotel:</strong>
-  <%= @day.bus_call_hotel %>
-</p>
-
-<p>
-  <strong>Notes:</strong>
-  <%= @day.notes %>
-</p>
-
-<p>
-  <span>
-  	Created at: <%= @day.created_at %>
-  </span>
-  <br>
-  <span>
-  	Updated at: <%= @day.updated_at %>
-  </span>
-</p>
-<%= link_to 'Edit', edit_day_path(@day) %> |
-<%= link_to 'Back', days_path %>
-<!--
-
-  <p>
-  <strong>Expenses:</strong>
-  Per Diem: <%= @day.per_diem_exp %>
-  Gas: <%= @day.gas_exp %>
-  Hotel: <%= @day.hotel_exp %>
-  Other Expenses: <%= @day.other_expenses %>
-</p>
-<p>
-  <strong>Times:</strong>
-  Bus Call (AM): <%= @day.bus_call_am %>
-  Bus Call (Hotel): <%= @day.bus_call_hotel %>
-</p>
-
-
--->

@@ -14,7 +14,7 @@
   <tbody>
     <% @incomes.each do |i| %>
       <tr>
-        <td><%= this_tour(i.tour_id) %></td>
+        <td><%= tour(i.tour_id).name %></td>
         <td><%= i.schedule_id %></td>
         <td><%= i.guarantee %></td>
         <td><%= link_to 'Show', i %></td>

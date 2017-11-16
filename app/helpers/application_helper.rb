@@ -1,26 +1,39 @@
 module ApplicationHelper
 
-	def this_tour(id)
-		Tour.find(id).name
+	def venue(id)
+		Venue.find(id)
 	end
 
-	def get_venue_by_id(id)
-		Venue.find(id).name
+	def tour (id) 
+		Tour.find (id)
 	end
 
+	def schedules (day_id) 
+		Schedule.where ( 'schedules.day_id = ' + day_id.to_s)
+	end
+
+	/# 
+	def income (schedule_id)
+		Schedule.where ( 'incomes.schedule_id = ' + schedule_id.to_s)
+	end
+	.#/
+
+
+	def income (id)
+		p "id = " + id
+		Income.find (id)
+	end
+
+	/#
+	turn into joins
 	def day_of_tour (this_date, start_date)
 	  	Day.where( 'days.date BETWEEN ? AND ?', this_date , start_date ).count
 	end
 
-	def schedules_for_day (day_id)
-		p "day_id = " + day_id.to_s
-		Schedule.where ( 'schedules.day_id = ' + day_id.to_s)
-	end
-
 	def incomes_for_schedule (sch_id)
-		p "sch_id = " + sch_id.to_s
 		Income.where ( 'incomes.schedule_id = ' + sch_id.to_s)
 	end
+	#/
 
 	def get_metrics
 		id = Tour.where("Active != TRUE").first.id

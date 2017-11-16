@@ -5,16 +5,21 @@ class DaysController < ApplicationController
   # GET /days.json
   def index
     @days = Day.all
-    @recent_days = Day.where( 'days.created_at BETWEEN ? AND ?', 4.month.ago, 2.month.from_now ).order('date DESC').first(10)
-    @days_num = Day.distinct.count('id')
-    @current_tour = Tour.where( 'tours.end_date BETWEEN ? AND ?', Date.today, 1.month.from_now ).order('start_date DESC').first
-    @days_for_tour = Tour.joins(:days).where(:days => {:tour_id => @current_tour.id})
-    @incomes = Income.all 
   end
 
   # GET /days/1
   # GET /days/1.json
   def show
+    @tour = Tour.find( @day.tour_id.to_s )
+
+    @schedules = Schedule.where( ' day_id = ' + @day.id.to_s )
+
+    ids = []
+    @schedules.each do |s| 
+      ids.push(s.id.to_s)
+    end 
+
+    @income = Income.where ('schedule_id => ids')
   end
 
   # GET /days/new

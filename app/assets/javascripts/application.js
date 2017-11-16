@@ -13,6 +13,14 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
+  
+//= require jquery
+//= require jquery_ujs
+
+//= require bootstrap
+# require bootstrap-editable
+# require bootstrap-editable-rails
+//= require_tree .
 
   window.fbAsyncInit = function() {
     FB.init({

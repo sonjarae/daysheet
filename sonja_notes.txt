@@ -3,4 +3,20 @@ ps auxwww | grep postgres
 
 
 Notes: 
+inner query
+
+            <% if Schedule.where(day_id: d.id).exists? %>
+               <tr>
+                <td>
+                   </td>
+                <td>
+                  </td>
+              <% else %>
+               <div class="row">  
+                <td>
+                  <strong>No schedules for this day</strong>
+                </td>
+               </div>
+               </tr>
+              <% end %> 
 

@@ -22,6 +22,11 @@
   </div>
 
   <div class="field">
+    <%= form.label :venue_id %>
+  <%= form.number_field :venue_id, id: :schedule_venue_id %>
+  </div>
+
+  <div class="field">
     <%= form.label :day_id %>
     <%= form.number_field :day_id, id: :schedule_day_id %>
   </div>

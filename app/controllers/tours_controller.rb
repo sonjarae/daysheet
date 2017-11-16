@@ -5,30 +5,28 @@ class ToursController < ApplicationController
   # GET /tours.json
   def index
     p "in tours_controller"
-    @tours = Tour.all
-
+    
     if @tour != nil
-      p "tour not nil"
-      @tour = Tour.find(params[:id])
+      @days = Day.where("tour_id = " + @tour.id.to_s ).all
     else 
-      p "tour is nil. grabbing most recent"
-      @tour = Tour.all.order('updated_at ASC').first
+      @days = []
     end
 
+    # @current_tour = Tour.where( 'tours.end_date BETWEEN ? AND ?', Date.today, 1.month.from_now ).order('start_date DESC').first
+    # @days_for_tour = Tour.joins(:days).where(:days => {:tour_id => @tour.id})
     #render :viewname, :layout => false
-
-    p "tour id = " + @tour.id.to_s 
-
-  end
-
-  def assign_tour
-    @tour = Tour.find(params[:id])
   end
 
   # GET /tours/1
   # GET /tours/1.json
   def show
+    @tour = Tour.find(params[:id])
     
+    if @tour != nil
+      @days = Day.where("tour_id = " + @tour.id.to_s ).all
+    else 
+      @days = []
+    end
   end
 
   # GET /tours/new
@@ -88,6 +86,6 @@ class ToursController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tour_params
-      params.require(:tour).permit(:name, :id, :start_date, :end_date, :active)
+      params.require(:tour).permit(:name, :id, :start_date, :end_date, :active).update_attributes(:id)
     end
 end

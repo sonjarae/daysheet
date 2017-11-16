@@ -1,21 +1,52 @@
-<p id="notice"><%= notice %></p>
-
-<h1> Income </h1>
-
-<p>
-  <strong>Tour:</strong>
-</p>
-
-<p>
-  <strong>Schedule:</strong>
-  <%= @tour.schedule_id %>
-</p>
-
-<p>
-  <strong>Guarantee:</strong>
-  <%= @income.guarantee %>
-</p>
-
-
-<%= link_to 'Edit', edit_income_path(@income) %> |
-<%= link_to 'Back', incomes_path %>
+<!doctype html>
+<html lang="en">
+<body>
+<main role="main" class="container">
+  <p id="notice"><%= notice %></p>  
+  <div class="starter-template">
+  <table>
+    <thead>
+      <tr>
+        <th>Guarantee</th>
+        <th colspan="5"></th>
+      </tr>
+    </thead>
+    <tbody>
+     <tr>
+        <td><% @income.guarantee %></td>
+     </tr>
+    </tbody>
+  </table> 
+ </div>
+</main>
+  <!-- . Income 
+	   Add to table 
+    t.decimal "guarantee"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "attendance_paid"
+    t.integer "attendance_total"
+    t.integer "attendance_comped"
+    t.decimal "ticket_price"
+    t.decimal "band_end_min"
+    t.decimal "band_end_perc"
+    t.decimal "band_end_dollar"
+    t.decimal "potential_dollar"
+    t.decimal "bonus"
+    t.string "bonus_notes"
+    t.decimal "club_expenses"
+    t.string "club_expenses_notes"
+    t.decimal "merch_income"
+    t.decimal "total_income"
+    t.decimal "other_income"
+    t.decimal "other_expenses"
+    t.string "notes"
+    t.integer "schedule_id"
+    t.integer "tour_id"
+       	. -->
+<!-- /. table -->
+<!-- /.container -->
+</body>
+</html>
+<script >
+</script>

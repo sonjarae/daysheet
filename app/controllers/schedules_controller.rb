@@ -19,6 +19,7 @@ class SchedulesController < ApplicationController
 
   # GET /schedules/1/edit
   def edit
+    @schedule = Schedule.find(params[:id])
   end
 
   # POST /schedules
@@ -69,6 +70,6 @@ class SchedulesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def schedule_params
-      params.require(:schedule).permit(:load_in_time,:tour_id, :day_id)
+      params.require(:schedule).permit(:id,:load_in_time,:show_status,:tour_id,:venue_id,:day_id)
     end
 end
