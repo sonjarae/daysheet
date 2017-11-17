@@ -10,11 +10,10 @@
 </p>
 
 <p>
-  <strong>
-    <a href="/schedules/<%= @schedule.venue_id %>">
-      <%= venue(@schedule.venue_id).name %>
-    </a>
-    </strong>
+  <strong>Venue:</strong>
+   <a href="/schedules/<%= @schedule.venue_id %>">
+    <%= @schedule.venue_id %>
+  </a>
 </p>
 
 <p>

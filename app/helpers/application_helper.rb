@@ -1,11 +1,19 @@
 module ApplicationHelper
 
 	def venue(id)
-		Venue.find(id)
+		Venue.find (id)
 	end
 
-	def tour (id) 
-		Tour.find (id)
+	def tour (id)
+		Tour.find(id)
+	end
+
+	def day (id) 
+		Day.find (id) 
+	end
+
+	def income (id)
+		Income.where ( 'incomes.schedule_id = ' + id.to_s)
 	end
 
 	def schedules (day_id) 
@@ -17,12 +25,6 @@ module ApplicationHelper
 		Schedule.where ( 'incomes.schedule_id = ' + schedule_id.to_s)
 	end
 	.#/
-
-
-	def income (id)
-		p "id = " + id
-		Income.find (id)
-	end
 
 	/#
 	turn into joins

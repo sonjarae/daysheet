@@ -4,11 +4,11 @@
 <main role="main" class="container">
   <p id="notice"><%= notice %></p>  
   <div class="starter-template">
-    <center><p class="lead"><%= @day.date %></p></center> 
-    <h1><%= @tour.name %></h1>
+    <center><p class="lead"><%= tour(@day.tour_id).name %></p></center> 
+    <h1> <%= @day.date %></h1>
     <!-- Days for Tour -->
-    <table>
-      <thead>
+    <table class="table table-striped">
+      <thead >
         <tr>
           <th>Venue</th>
           <th>Show Number</th>
@@ -22,12 +22,13 @@
         </tr>
       </thead>
       <form>
-        <tbody>
+        <tbody class=".table-striped">
           <% @schedules.each do |s| %>
             <%= form_for s do |f| %>
               <tr>
-                <% p "schedule: " + s.show_status %>
-                <td><% venue(s.venue_id).name %></td>
+                <td id="sch_venue_id" data-type="text" data-resource="post" data-name="venue_id" data-url="controller/action/<%= s.id %>" data-original-title="Venue Id">  
+                  <%= f.number_field :venue_id %>
+                </td>
                 <td><%= s.show_number %></td>
                 <td id="sch_show_status" data-type="text" data-resource="post" data-name="show_status" data-url="controller/action/<%= s.id %>" data-original-title="Show Status">  
                   <%= f.text_field :show_status %>
@@ -37,7 +38,7 @@
                 <td><%= s.doors_time %></td>
                 <td><%= s.set_time %></td>
                 <td><%= s.guest_list %></td>
-                <td class="actions" onclick="refresh();" >
+                <td class="actions" >
                   <%= f.submit %>
                 </td>
               </tr>

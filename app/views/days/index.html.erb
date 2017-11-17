@@ -3,6 +3,8 @@
 <main role="main" class="container">
   <p id="notice"><%= notice %></p>  
   <div class="starter-template">
+  <h1>Days</h1>
+  <h2><%= link_to 'New Day', new_day_path %></h2>
     <table>
       <thead>
         <tr>
@@ -15,11 +17,15 @@
       <form>
         <tbody>
           <% @days.each do |d| %>
-            <td><%= tour(d.tour_id).name %></td>
+            <td><%= link_to 'View/Edit', d %></td>
+            <td>
+             <a href="/tours/<%= d.tour_id %>">
+                <% tour(d.tour_id).name %>
+              </a>
+            </td>
             <td><%= d.date %></td>
             <td><%= schedules(d.id).count %></td>
-            <td><%= link_to 'Show', d %></td>
-            <td><%= link_to 'Edit', edit_day_path(d) %></td>
+            
             <td><%= link_to 'Delete', d, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
           <% end %> 

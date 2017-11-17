@@ -1,9 +1,50 @@
 <p id="notice"><%= notice %></p>
+	<%= form_for @venue do |f| %>
+		
+	<p id="venue_name" data-type="text" data-resource="post" data-name="name" data-url="controller/action/<%= @venue.id %>" data-original-title="Name">
+      	<%= f.text_field :name %>
+	</p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @venue.name %>
-</p>
+	<p>
+	  <strong>Address:</strong>
+   	  	<p id="venue_address" data-type="text" data-resource="post" data-name="address" data-url="controller/action/<%= @venue.id %>" data-original-title="address">
+      	<%= f.text_field :address %>
+	</p>
 
-<%= link_to 'Edit', edit_venue_path(@venue) %> |
+	<p>
+	  <strong>Phone:</strong>
+ 	  	<p id="venue_phone" data-type="text" data-resource="post" data-name="phone" data-url="controller/action/<%= @venue.id %>" data-original-title="phone">
+      	<%= f.text_field :phone %>
+	</p>
+
+	<p>
+	  <strong>Website:</strong>
+   	  	<p id="venue_website" data-type="text" data-resource="post" data-name="website" data-url="controller/action/<%= @venue.id %>" data-original-title="website">
+      	<%= f.text_field :website %>
+	</p>
+
+	<p>
+	  <strong>Booking Contact:</strong>
+  	  	<p id="venue_booking_contact" data-type="text" data-resource="post" data-name="booking_contact" data-url="controller/action/<%= @venue.id %>" data-original-title="booking_contact">
+      	<%= f.text_field :booking_contact %>
+	</p>
+
+	<p>
+	  <strong>Production Contact:</strong>
+  	  	<p id="venue_production_contact" data-type="text" data-resource="post" data-name="production_contact" data-url="controller/action/<%= @venue.id %>" data-original-title="production_contact">
+      	<%= f.text_field :production_contact %>
+	</p>
+
+	<p>
+	  <strong>Sound Contact:</strong>
+	  	<p id="venue_sound_contact" data-type="text" data-resource="post" data-name="sound_contact" data-url="controller/action/<%= @venue.id %>" data-original-title="sound_contact">
+      	<%= f.text_field :sound_contact %>
+	</p>
+
+	<div class="actions" >
+	  <%= f.submit %>
+	</div>
+
+	<% end %>
+
 <%= link_to 'Back', venues_path %>

@@ -45,3 +45,7 @@
       statusChangeCallback(response);
     });
   }
+
+  function refresh{
+    location.reload();
+  }

@@ -13,12 +13,10 @@ class DaysController < ApplicationController
     @tour = Tour.find( @day.tour_id.to_s )
 
     @schedules = Schedule.where( ' day_id = ' + @day.id.to_s )
-
     ids = []
     @schedules.each do |s| 
       ids.push(s.id.to_s)
     end 
-
     @income = Income.where ('schedule_id => ids')
   end
 
@@ -79,6 +77,6 @@ class DaysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def day_params
-      params.require(:day).permit(:date, :tour_id, :notes, :city, :day_of_tour, :bus_call_hotel, :bus_call_am)
+      params.require(:day).permit(:date, :tour_id, :notes, :city, :day_of_tour, :bus_call_hotel, :bus_call_am, :venue_id)
     end
 end

@@ -1,110 +1,52 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Daysheet">
-    <meta name="author" content="Sonja Broach">
-    <%= csrf_meta_tags %>
-    <title>Daysheet</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-  </head>
 <body>
-<header>
-  <form>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Daysheet</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home 
-            <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/venues/#">Venues</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<%= new_tour_path %>">New Tour</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<%= "/tours/#" %>">Tours</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<%= "/shows/#" %>">Shows</a>
-        </li>
-      </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <li>
-          <fb:login-button 
-            scope="public_profile,email"
-            onlogin="checkLoginState();">
-          </fb:login-button>
-        </ul>
-        </li>
-      </form>
-    </div>
-  </nav>
- </form>
-</header><!-- /.navigation-->
-
 <main role="main" class="container">
   <p id="notice"><%= notice %></p>  
   <div class="starter-template">
+    <p class="lead"> <%= @tour.name %> </p>
+    <%= form_for @tour do |f| %>
+      <p id="tour_name" data-type="text" data-resource="post" data-name="name" data-url="controller/action/<%= @tour.id %>" data-original-title="Name">
+        <%= f.text_field :name %>
+      </p>
+      <p id="tour_start_date" data-type="text" data-resource="post" data-name="start_date" data-url="controller/action/<%= @tour.id %>" data-original-title="start_date" >
+      Start Date: <%= f.date_select :start_date %>
+      </p>
+      <p id="tour_end_date" data-type="text" data-resource="post" data-name="end_date" data-url="controller/action/<%= @tour.id %>" data-original-title="end_date">
+      End Date: <%= f.date_select :end_date %>
+      </p>
+      <div class="actions" >
+        <%= f.submit %>
+      </div>
+    <% end %>
 
-    <h1><%= @tour.name %></h1>
-
-    <!-- Metrics for Tour -->
-
-    <p class="lead"> Tour Metrics </p> 
-
-    <!-- Days for Tour -->
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>City</th>
-          <th>Bus Call</th>
-          <th>Hotel Call</th>
-          <th>Notes</th>
-           <th colspan="5"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @days.each do |d| %>
+      <table class="table table-striped">
+        <thead class="thead-dark">
           <tr>
-            <td><a href="/days/<%= d.id %>"> <%= d.date %> </a> </td>
-            <td><%= d.city %></td>
-            <td><%= d.bus_call_am %></td>
-            <td><%= d.bus_call_hotel %></td>
-            <td> <%= d.notes %></td>
-
-            <table style="margin-left:10px">
-           <!-- Schedules for Day -->
-            <% schedules(d.id).each do |s| %>
-              <% if s != nil && s.day_id != nil %>
-                <tr>
-                  <th> <a href="/schedules/<% s.id %>"> <% venue(s.venue_id).name %> </a> </th>
-                  <td> <%= s.show_status %></td>
-                </tr> 
-              <% end %> 
-            <% end %> 
-          </table>
-
+            <th scope="col">Date</th>
+            <th scope="col">City</th>
+            <th scope="col">Bus Call</th>
+            <th scope="col">Hotel Call</th>
+            <th scope="col">Notes</th>
+             <th colspan="5"></th>
           </tr>
-        <% end %>  
-        <!-- /. first loop -->
-      </tbody>
-    </table> 
-    <!-- /. table -->
+        </thead >
+        <tbody>
+          <% @days.each do |d| %>
+            <tr >
+              <th scope="row"> <a href="/days/<%= d.id %>"> <%= d.date %> </a> </th>
+              <td ><%= d.city %></td>
+              <td ><%= d.bus_call_am %></td>
+              <td ><%= d.bus_call_hotel %></td>
+              <td > <textarea rows="4" cols="50" disabled=true > <%= d.notes %> </textarea></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <!-- /. table -->
   </div>
 </main>
 <!-- /.container -->
 </body>
 </html>
 <script >
+
 </script>
