@@ -10,6 +10,7 @@ class IncomesController < ApplicationController
   # GET /incomes/1
   # GET /incomes/1.json
   def show
+    @total_income = 0 
     #income = Income.find(params[:id])
     #day = Day.where(:id => income.day_id) 
     #@venue = Venue.where(:id => day.venue_id) 

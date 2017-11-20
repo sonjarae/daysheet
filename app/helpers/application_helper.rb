@@ -9,7 +9,11 @@ module ApplicationHelper
 	end
 
 	def day (id) 
-		Day.find (id) 
+		Day.find(id)
+	end
+
+	def schedule (id) 
+		Schedule.find(id)
 	end
 
 	def income (id)
@@ -18,9 +22,16 @@ module ApplicationHelper
 
 	def schedules (day_id) 
 		Schedule.where ( 'schedules.day_id = ' + day_id.to_s)
-	end
+	end 
+
+	def day_for_schedule_id (schedule_id) 
+		day = Day.select('date').joins("INNER JOIN schedules ON schedules.day_id = days.id and schedules.id = schedule_id")
+	end 
 
 	/# 
+
+Author.left_outer_joins(:posts).distinct.select('authors.*, COUNT(posts.*) AS posts_count').group('authors.id')
+
 	def income (schedule_id)
 		Schedule.where ( 'incomes.schedule_id = ' + schedule_id.to_s)
 	end
@@ -32,9 +43,6 @@ module ApplicationHelper
 	  	Day.where( 'days.date BETWEEN ? AND ?', this_date , start_date ).count
 	end
 
-	def incomes_for_schedule (sch_id)
-		Income.where ( 'incomes.schedule_id = ' + sch_id.to_s)
-	end
 	#/
 
 	def get_metrics

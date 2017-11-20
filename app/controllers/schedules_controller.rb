@@ -10,6 +10,8 @@ class SchedulesController < ApplicationController
   # GET /schedules/1
   # GET /schedules/1.json
   def show
+    @venue = Venue.find(@schedule.venue_id)
+    @google_map = "https://maps.googleapis.com/maps/api/staticmap?center=" + @venue.address.encode!('UTF-8') +"&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyDHGxRZIutvb6Iv2nDn3iQTQUv3aLbQLhc"
   end
 
   # GET /schedules/new
@@ -43,7 +45,7 @@ class SchedulesController < ApplicationController
   def update
     respond_to do |format|
       if @schedule.update(schedule_params)
-        format.html { redirect_to @schedule, notice: 'Schedule was successfully updated.' }
+        format.html { redirect_to schedules_url, notice: 'Schedule was successfully updated.' }
         format.json { render :show, status: :ok, location: @schedule }
       else
         format.html { render :edit }
@@ -70,6 +72,6 @@ class SchedulesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def schedule_params
-      params.require(:schedule).permit(:id,:load_in_time,:show_status,:tour_id,:venue_id,:day_id)
+      params.require(:schedule).permit(:id,:load_in_time,:set_time,:sound_check_time, :doors_time,:show_status,:tour_id,:venue_id,:day_id,:guest_list)
     end
 end

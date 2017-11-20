@@ -1,24 +1,41 @@
+<!doctype html>
+<html lang="en">
+<body>
+<main role="main" class="container">
 <p id="notice"><%= notice %></p>
-
 <h1>Settlements</h1>
-<h2><%= link_to 'New Income', new_income_path %></h2>
-<table>
-  <thead>
+<h2>
+<%= link_to 'New Settlement', new_income_path %>
+</h2>
+<table class="table">
+  <thead class="thead-light">
     <tr>
+      <th></th>
       <th>Tour</th>
-      <th>Schedule</th>
+      <th>Show</th>
       <th>Guarantee</th>
+      <th>Ticket Price</th>
+      <th>Attendance Total</th>
+      <th>Attendance Paid</th>
+      <th>Merch Income</th>
+      <th>Expenses</th>
+      <th>Total Income</th>
       <th colspan="3"></th>
     </tr>
   </thead>
   <tbody>
     <% @incomes.each do |i| %>
       <tr>
+        <th scope="row"><%= link_to 'View/Edit', i %></th>
         <td><%= tour(i.tour_id).name %></td>
-        <td><%= i.schedule_id %></td>
+        <td><%= link_to 'Show', '/schedules/'+ i.schedule_id.to_s %></td>
         <td><%= i.guarantee %></td>
-        <td><%= link_to 'Show', i %></td>
-        <td><%= link_to 'Edit', edit_income_path(i) %></td>
+        <td><%= i.ticket_price %></td>
+        <td><%= i.attendance_total %></td>
+        <td><%= i.attendance_paid %></td>
+        <td><%= i.merch_income %></td>
+        <td><%= i.club_expenses %></td>
+        <td><%= i.total_income %></td>
         <td><%= link_to 'Delete', i, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

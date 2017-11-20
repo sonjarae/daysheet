@@ -4,19 +4,48 @@
 <main role="main" class="container">
   <p id="notice"><%= notice %></p>  
   <div class="starter-template">
-    <center><p class="lead"><%= tour(@day.tour_id).name %></p></center> 
-    <h1> <%= @day.date %></h1>
-    <!-- Days for Tour -->
+    <center>
+      <p class="lead"><%= tour(@day.tour_id).name %></p>
+    </center> 
+    <h1> <%= @day.date %></h1> 
+    <%= form_for @day do |f| %>
+     <table class="table">
+      <tbody>
+        <tr>
+          <td> <%= f.submit %> </td>
+          <td>
+            <strong>Day Info</strong> <!-- Info for Day -->
+            <br><%= f.time_zone_select(:time_zone, ActiveSupport::TimeZone.us_zones, default: "Pacific Time (US & Canada)") %>
+            <br>City: <%= f.text_field :city %>
+            <br>Date: <%= f.text_field :date %>
+            <br> <br> Notes: 
+            <textarea rows="2" cols="50"> 
+              <%= f.text_area :notes %> 
+            </textarea>
+          </td>
+          <td>
+            <strong>Expenses</strong><!-- Expenses for Day -->
+            <br>Per Diem: $<%= f.number_field :per_diem_exp, as: :currency %>
+            <br>Gas: $<%= f.number_field :gas_exp, as: :currency  %>
+            <br>Hotel: $<%= f.number_field :hotel_exp, as: :currency  %> 
+            <br>Other Expenses: $<%= f.number_field :other_expenses, as: :currency  %> 
+          </td>
+          <td> <%= f.submit %> </td>
+        <tr>
+      </tbody>
+    </table>
+   <%end%>
+  <br>
+  <!-- Schedules for Day -->
     <table class="table table-striped">
+    <h2>Show Schedule</h2> 
       <thead >
         <tr>
+          <th></th>
+          <th></th>
           <th>Venue</th>
-          <th>Show Number</th>
           <th>Show Status</th>
-          <th>Load In</th>
-          <th>Sound Check</th>
-          <th>Doors</th>
-          <th>Set Time</th>
+          <th>Times</th>
           <th>Guest List</th>
           <th colspan="5"></th>
         </tr>
@@ -26,20 +55,37 @@
           <% @schedules.each do |s| %>
             <%= form_for s do |f| %>
               <tr>
-                <td id="sch_venue_id" data-type="text" data-resource="post" data-name="venue_id" data-url="controller/action/<%= s.id %>" data-original-title="Venue Id">  
-                  <%= f.number_field :venue_id %>
+                <td><%= f.submit %></td>
+                <td>
+                  <%= link_to "View/Edit", "/schedules/"+s.id.to_s  %>
                 </td>
-                <td><%= s.show_number %></td>
-                <td id="sch_show_status" data-type="text" data-resource="post" data-name="show_status" data-url="controller/action/<%= s.id %>" data-original-title="Show Status">  
+                <td>
+                  <%= venue(s.venue_id).name %>
+                </td>
+                <td id="sch_show_status" data-type="text" data-resource="post" data-name="show_status" data-url="controller/action/<%= s.id %>" data-original-title="Show Status">
                   <%= f.text_field :show_status %>
                 </td>
-                <td><%= s.load_in_time %></td>
-                <td><%= s.sound_check_time %></td>
-                <td><%= s.doors_time %></td>
-                <td><%= s.set_time %></td>
-                <td><%= s.guest_list %></td>
+                <td>
+                  <div id="sch_load_in_time" data-type="text" data-resource="post" data-name="load_in_time" data-url="controller/action/<%= s.id %>" data-original-title="Load Time">  
+                    Load In <%= f.time_field :load_in_time %>
+                  </div>
+                   <div id="sch_sound_check_time" data-type="text" data-resource="post" data-name="sound_check_time" data-url="controller/action/<%= s.id %>" data-original-title="Sound Time">  
+                    Sound Check <%= f.time_field :sound_check_time %> 
+                   </div>
+                   <div id="sch_doors_time" data-type="text" data-resource="post" data-name="doors_time" data-url="controller/action/<%= s.id %>" data-original-title="Doors Time">  
+                    Doors <%= f.time_field :doors_time %>
+                   </div>
+                   <div id="sch_set_time" data-type="text" data-resource="post" data-name="set_time" data-url="controller/action/<%= s.id %>" data-original-title="Set Time">  
+                   Set <%= f.time_field :set_time %>
+                  </div> 
+                </td>
+                <td id="sch_guest_list" data-type="text" data-resource="post" data-name="guest_list" data-url="controller/action/<%= s.id %>" data-original-title="Guest List">  
+                  <textarea rows="2" cols="30" > 
+                   <%= f.text_field :guest_list, id: :guest_list, value: :guest_list.to_s %> 
+                 </textarea>
+                </td>
                 <td class="actions" >
-                  <%= f.submit %>
+                 <%= f.submit %> 
                 </td>
               </tr>
             <% end %> 
@@ -53,12 +99,6 @@
 <!-- /.container -->
 </body>
 </html>
-<script >
-  function refresh{
-    location.reload();
-  }
-</script>
-
       <!-- . 
       Schedules
       t.integer "time_between_bands_calc"

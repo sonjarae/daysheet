@@ -1,36 +1,51 @@
 <p id="notice"><%= notice %></p>
 
+<%= form_for @schedule do |f| %>
+<td class="actions" >
+  <%= f.submit %>
+</td>
+<br>
+<br>
 <p>
-  <strong>Day:</strong>
-  <%= @schedule.day_id %>
+  <strong>Day</strong>
+  <%= link_to day(@schedule.day_id).date, "/days/"+@schedule.day_id.to_s %>
+  of <strong>Tour</strong> <%= tour(@schedule.tour_id).name %> 
 </p>
-<p>
-  <strong>Tour:</strong>
-  <%= tour(@schedule.tour_id).name %>
-</p>
-
-<p>
-  <strong>Venue:</strong>
-   <a href="/schedules/<%= @schedule.venue_id %>">
-    <%= @schedule.venue_id %>
-  </a>
-</p>
-
-<p>
-  <strong>Show number:</strong>
-  <%= @schedule.show_number %>
-</p>
-
 <p>
   <strong>Show status:</strong>
-  <%= @schedule.show_status %>
+  <%= f.text_field :show_status %>
 </p>
-
+  <h3><%= link_to @venue.name, "/venues/"+@schedule.venue_id.to_s %></h3> 
+   <br>
+    <%= @venue.phone %><br>
+    Sound: <%= @venue.sound_contact %><br>
+    Production: <%= @venue.production_contact %><br>
+    Booking: <%= @venue.booking_contact %><br>
+    <%= link_to @venue.website, "http://"+@venue.website %><br>
+    <%= @venue.address %><br>
+    <img src="<%= @google_map %>"/> 
+</p>
+<p>
+  <strong>Times</strong>
+  <div id="times">
+    Load In: <%= f.time_field :load_in_time %>
+    Sound Check: <%= f.time_field :sound_check_time %>
+    Doors: <%= f.time_field :doors_time %> 
+    Set: <%= f.time_field :set_time %>
+  </div>
 <p>
   <% if @schedule.income_id != nil %>
-    <strong>See <a href="/incomes/<%= @schedule.income_id %>">Settlement Sheet</strong></a>
+    <h2>See <a href="/incomes/<%= @schedule.income_id %>">Settlement Sheet</strong></h2>
+  <% else %> 
+   <h2> <a href="/incomes/new">Add Settlement Sheet</strong></h2>
   <% end %>
 </p>
+<br>
+<td class="actions" >
+  <%= f.submit %>
+</td>
+<% end %>
+<br>
 <%= link_to 'Edit', edit_schedule_path(@schedule) %> |
 <%= link_to 'Back', schedules_path %>
 <%= link_to 'Delete', @schedule, method: :delete, data: { confirm: 'Are you sure?' } %>

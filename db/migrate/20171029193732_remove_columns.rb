@@ -13,5 +13,7 @@ class RemoveColumns < ActiveRecord::Migration[5.1]
   	remove_column :incomes, :user_id
     remove_column :days, :hotel_expenses
     remove_column :days, :day_of_tour
+    remove_column :schedules, :time_zone
+    add_column :days, :time_zone, :string
   end
 end

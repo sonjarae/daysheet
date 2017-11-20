@@ -1,45 +1,39 @@
 <!doctype html>
+<html lang="en">
 <body>
 <main role="main" class="container">
-  <p id="notice"><%= notice %></p>  
-  <div class="starter-template">
-  <h1>Days</h1>
-  <h2><%= link_to 'New Day', new_day_path %></h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Tour</th>
-          <th>Date</th>
-          <th>Number of shows</th>
-          <th colspan="5"></th>
+<p id="notice"><%= notice %></p>
+<h1>Days</h1>
+<h2>
+<%= link_to 'New Day', new_day_path %>
+</h2>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th></th>
+      <th>Tour</th>
+      <th>Date</th>
+      <th>Number of shows</th>
+      <th colspan="5"></th>
+    </tr>
+    </thead>
+    <form>
+      <tbody>
+        <% @days.each do |d| %>
+          <th scope="row"><%= link_to 'View/Edit', d %></th>
+          <td><%= tour(d.tour_id).name %></td>
+          <td><%= d.date %></td>
+          <td><%= schedules(d.id).count %></td>
+          
+          <td><%= link_to 'Delete', d, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
-      </thead>
-      <form>
-        <tbody>
-          <% @days.each do |d| %>
-            <td><%= link_to 'View/Edit', d %></td>
-            <td>
-             <a href="/tours/<%= d.tour_id %>">
-                <% tour(d.tour_id).name %>
-              </a>
-            </td>
-            <td><%= d.date %></td>
-            <td><%= schedules(d.id).count %></td>
-            
-            <td><%= link_to 'Delete', d, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </tr>
-          <% end %> 
-        </tbody>
-      </form>
-    </table> 
-    <!-- /. table -->
+        <% end %> 
+      </tbody>
+    </form>
+  </table> 
+  <!-- /. table -->
   </div>
 </main>
 <!-- /.container -->
 </body>
 </html>
-<script >
-  function refresh{
-    location.reload();
-  }
-</script>

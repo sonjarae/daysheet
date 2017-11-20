@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20171029193732) do
     t.decimal "gas_exp"
     t.decimal "hotel_exp"
     t.string "city"
+    t.string "time_zone"
   end
 
   create_table "incomes", force: :cascade do |t|

@@ -4,50 +4,61 @@
 <main role="main" class="container">
   <p id="notice"><%= notice %></p>  
   <div class="starter-template">
-  <table>
-    <thead>
-      <tr>
-        <th>Guarantee</th>
-        <th colspan="5"></th>
-      </tr>
-    </thead>
-    <tbody>
-     <tr>
-       <!-- make an edit page -->
-        <td><% @income.guarantee %></td>
-     </tr>
-    </tbody>
-  </table> 
+
+  <p class="lead">Total Income: $<%= @total_income %> </p> 
+  <h2> 
+    for Day <%= day_for_schedule_id(@income.schedule_id) %>
+    <%= tour(@income.tour_id).name %> 
+  </h2> 
+      
+  <form action="/incomes/<%= @income.id %>" method="PATCH">
+    <%= form_for @income do |f| %>
+    <p>Guarantee</p>
+     $<%= f.number_field :guarantee, id: :income_guarantee %>
+    <p>Ticket Price</p>
+      $<%= f.number_field :ticket_price, id: :income_ticket_price %>
+    <p>Band End Min.</p>
+      <%= f.number_field :band_end_min, id: :income_band_end_min %>
+    <p>Band End Percentage</p>
+      <%= f.number_field :band_end_perc, id: :income_band_end_perc %>
+    <p>Band End Dollar</p>
+      $<%= f.number_field :band_end_dollar, id: :income_band_end_dollar %>
+    <p>Total Attendance</p>
+      <%= f.number_field :attendance_total, id: :income_attendance_total %>
+    <p>Total Paid</p>
+      <%= f.number_field :attendance_paid, id: :income_attendance_paid %>
+    <p>Merch Income</p>
+      $<%= f.number_field :merch_income, id: :income_merch_income %>
+    <p>Other Income</p>
+      $<%= f.number_field :other_income, id: :income_other_income %>
+     <p>Club Expenses</p>
+      ($<%= f.number_field :club_expenses, id: :income_club_expenses %>)
+     <p>Potential Income</p>
+     $<%= f.number_field :potential_dollar, id: :income_potential_dollar %>
+    <br><br>
+    <p>Bonus</p>
+      $<%= f.number_field :bonus, id: :income_bonus %>
+    </p>
+    <p>Bonus notes</p>
+      <textarea rows="1" cols="50" > 
+        <%= f.text_field :bonus_notes, id: :bonus_notes, value: :bonus_notes.to_s %> %> </textarea>
+
+    <p>Club Expense notes</p>
+      <textarea rows="1" cols="50" > 
+        <%= f.text_field :club_expenses_notes, id: :club_expenses_notes, value: :club_expenses_notes.to_s %> </textarea>
+
+    <p>Show notes</p>
+      <textarea rows="4" cols="50" > 
+        <%= f.text_field :notes, id: :notes, value: :notes.to_s %> </textarea>
+
+    <div class="actions" >
+      <%= f.submit %>
+    </div>
+
+  <% end %>
+ </form>
  </div>
 </main>
-  <!-- . Income 
-	   Add to table 
-    t.decimal "guarantee"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "attendance_paid"
-    t.integer "attendance_total"
-    t.integer "attendance_comped"
-    t.decimal "ticket_price"
-    t.decimal "band_end_min"
-    t.decimal "band_end_perc"
-    t.decimal "band_end_dollar"
-    t.decimal "potential_dollar"
-    t.decimal "bonus"
-    t.string "bonus_notes"
-    t.decimal "club_expenses"
-    t.string "club_expenses_notes"
-    t.decimal "merch_income"
-    t.decimal "total_income"
-    t.decimal "other_income"
-    t.decimal "other_expenses"
-    t.string "notes"
-    t.integer "schedule_id"
-    t.integer "tour_id"
-       	. -->
-<!-- /. table -->
-<!-- /.container -->
 </body>
 </html>
-<script >
-</script>
+

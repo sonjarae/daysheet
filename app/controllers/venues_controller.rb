@@ -10,6 +10,7 @@ class VenuesController < ApplicationController
   # GET /venues/1
   # GET /venues/1.json
   def show
+    @google_map = "https://maps.googleapis.com/maps/api/staticmap?center=" + @venue.address.encode!('UTF-8') +"&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyDHGxRZIutvb6Iv2nDn3iQTQUv3aLbQLhc"
   end
 
   # GET /venues/new
@@ -69,6 +70,6 @@ class VenuesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def venue_params
-      params.require(:venue).permit(:name,:address,:booking_contact,:phone,:website,:sound_contact,:production_contact)
+      params.require(:venue).permit(:name,:website,:address,:booking_contact,:phone,:website,:sound_contact,:production_contact)
     end
 end

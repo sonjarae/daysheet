@@ -9,13 +9,13 @@ require 'date'
 
 tours = Tour.create([{name:'SNST Winter 2017',start_date: Date.today,end_date: Date.today+15},{name:'SNST Spring 2018',start_date: Date.today+60,end_date: Date.today+90}])
 
-venues = Venue.create([{name: 'Bob\'s Joint'},{name: 'High dive'}])
+venues = Venue.create([{name: 'The Joint', address: '1100 w 87th St, Willow Springs, IL 60480', website: 'thejoint.com'},{name: 'High dive', address: '600 w chicago ave, chicago, IL', website: 'highdive.com'}])
 
 tour = tours.first
 5.times do |ind|
 	p "in loop"
-	venue_name = 'venue num '+ind.to_s
-	ven = Venue.create(name:venue_name)
+	ven = venues.first
+	venue_name = ven.name
 	p ven
 
 	day_num = Date.today+ind
@@ -56,8 +56,8 @@ end
 tour = tours.second
 3.times do |ind|
 
-	venue_name = 'venue num '+ind.to_s
-	ven = Venue.create(name:venue_name)
+	ven = venues.second
+	venue_name = ven.name
 	p ven
 
 	day_num = Date.today+ind
@@ -89,8 +89,15 @@ tour = tours.second
 		show_status = 'Cancelled'
 	end
 
-	sch = Schedule.create(tour_id:tour.id, venue_id:ven.id, day_id:ind, show_number:ind, show_status: show_status)
+	sch = Schedule.create(
+		tour_id:tour.id, 
+		venue_id:ven.id, 
+		day_id:ind, 
+		show_number:ind, 
+		show_status: show_status,
+		guest_list: 'sonja, your mom' )
 	p sch
+
 	inc = Income.create(tour_id:tour.id, guarantee:300, schedule_id:sch.id)
 	p inc
 end

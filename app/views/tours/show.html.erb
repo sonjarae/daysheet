@@ -17,7 +17,14 @@
         <%= f.submit %>
       </div>
     <% end %>
-
+    <div id="metrics">
+       <!-- . 
+       sum day per_diem_exp 
+       sum day gas_exp 
+       sum day hotel_exp 
+       sum income exp
+     -->
+    </div>
       <table class="table table-striped">
         <thead class="thead-dark">
           <tr>
@@ -31,13 +38,16 @@
         </thead >
         <tbody>
           <% @days.each do |d| %>
-            <tr >
-              <th scope="row"> <a href="/days/<%= d.id %>"> <%= d.date %> </a> </th>
-              <td ><%= d.city %></td>
-              <td ><%= d.bus_call_am %></td>
-              <td ><%= d.bus_call_hotel %></td>
-              <td > <textarea rows="4" cols="50" disabled=true > <%= d.notes %> </textarea></td>
-            </tr>
+            <%= form_for d do |f| %>
+              <tr >
+                <th scope="row"> <a href="/days/<%= d.id %>"> <%= d.date %> </a> </th>
+                <td ><%= d.city %></td>
+                <td ><%= f.time_field :bus_call_am %></td>
+                <td ><%= f.time_field :bus_call_hotel %></td>
+                <td > <textarea rows="2" cols="50" disabled=true > <%= d.notes %> </textarea></td>
+                <td><%= f.submit %></td>
+              </tr>
+            <% end %>
           <% end %>
         </tbody>
       </table>
