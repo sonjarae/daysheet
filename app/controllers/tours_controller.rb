@@ -1,6 +1,5 @@
 class ToursController < ApplicationController
   before_action :set_tour, only: [:show, :edit, :update, :destroy]
-
   # GET /tours
   # GET /tours.json
   def index
@@ -21,7 +20,6 @@ class ToursController < ApplicationController
   # GET /tours/1.json
   def show
     @tour = Tour.find(params[:id])
-    
     if @tour != nil
       @days = Day.where("tour_id = " + @tour.id.to_s ).all
     else 

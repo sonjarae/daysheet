@@ -15,5 +15,18 @@ class RemoveColumns < ActiveRecord::Migration[5.1]
     remove_column :days, :day_of_tour
     remove_column :schedules, :time_zone
     add_column :days, :time_zone, :string
+
+    add_column :schedules,:booking_contact, :string
+    add_column :schedules,:production_contact, :string
+    add_column :schedules,:sound_contact, :string
+    add_column :schedules,:show_schedule, :string
+    add_column :schedules,:ticket_link, :string
+
+    add_column :venues,:email, :string
+    add_column :venues,:contact, :string
+    remove_column :venues,:booking_contact
+    remove_column :venues,:production_contact
+    remove_column :venues,:sound_contact
+
   end
 end

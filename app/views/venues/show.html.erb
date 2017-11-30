@@ -26,23 +26,17 @@
 	</p>
 
 	<p>
-	  <strong>Booking Contact:</strong>
-  	  	<p id="venue_booking_contact" data-type="text" data-resource="post" data-name="booking_contact" data-url="controller/action/<%= @venue.id %>" data-original-title="booking_contact">
-      	<%= f.text_field :booking_contact %>
+	  <strong>Contact:</strong>
+  	  	<p id="venue_contact" data-type="text" data-resource="post" data-name="contact" data-url="controller/action/<%= @venue.id %>" data-original-title="contact">
+      	<%= f.text_field :contact %>
 	</p>
 
 	<p>
-	  <strong>Production Contact:</strong>
-  	  	<p id="venue_production_contact" data-type="text" data-resource="post" data-name="production_contact" data-url="controller/action/<%= @venue.id %>" data-original-title="production_contact">
-      	<%= f.text_field :production_contact %>
+	  <strong>Email:</strong>
+  	  	<p id="venue_email" data-type="text" data-resource="post" data-name="email" data-url="controller/action/<%= @venue.id %>" data-original-title="email">
+      	<%= f.text_field :email %>
 	</p>
-
-	<p>
-	  <strong>Sound Contact:</strong>
-	  	<p id="venue_sound_contact" data-type="text" data-resource="post" data-name="sound_contact" data-url="controller/action/<%= @venue.id %>" data-original-title="sound_contact">
-      	<%= f.text_field :sound_contact %>
-	</p>
-
+	
 	<div class="actions" >
 	  <%= f.submit %>
 	</div>

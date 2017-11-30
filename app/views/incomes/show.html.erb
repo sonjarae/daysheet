@@ -1,18 +1,14 @@
-<!doctype html>
-<html lang="en">
 <body>
 <main role="main" class="container">
   <p id="notice"><%= notice %></p>  
   <div class="starter-template">
-
   <p class="lead">Total Income: $<%= @total_income %> </p> 
   <h2> 
     for Day <%= day_for_schedule_id(@income.schedule_id) %>
     <%= tour(@income.tour_id).name %> 
   </h2> 
-      
-  <form action="/incomes/<%= @income.id %>" method="PATCH">
-    <%= form_for @income do |f| %>
+  <form>
+  <%= form_for @income do |f| %>
     <p>Guarantee</p>
      $<%= f.number_field :guarantee, id: :income_guarantee %>
     <p>Ticket Price</p>
@@ -41,24 +37,17 @@
     </p>
     <p>Bonus notes</p>
       <textarea rows="1" cols="50" > 
-        <%= f.text_field :bonus_notes, id: :bonus_notes, value: :bonus_notes.to_s %> %> </textarea>
-
+        <% f.text_field :bonus_notes, id: :bonus_notes, value: :bonus_notes.to_s %> %> </textarea>
     <p>Club Expense notes</p>
       <textarea rows="1" cols="50" > 
-        <%= f.text_field :club_expenses_notes, id: :club_expenses_notes, value: :club_expenses_notes.to_s %> </textarea>
-
+        <% f.text_field :club_expenses_notes, id: :club_expenses_notes, value: :club_expenses_notes.to_s %> </textarea>
     <p>Show notes</p>
       <textarea rows="4" cols="50" > 
-        <%= f.text_field :notes, id: :notes, value: :notes.to_s %> </textarea>
-
+        <% f.text_field :notes, id: :notes, value: :notes.to_s %> </textarea>
     <div class="actions" >
       <%= f.submit %>
     </div>
-
   <% end %>
  </form>
  </div>
 </main>
-</body>
-</html>
-

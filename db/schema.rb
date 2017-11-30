@@ -72,6 +72,11 @@ ActiveRecord::Schema.define(version: 20171029193732) do
     t.integer "venue_id"
     t.string "guest_list"
     t.integer "income_id"
+    t.string "booking_contact"
+    t.string "production_contact"
+    t.string "sound_contact"
+    t.string "show_schedule"
+    t.string "ticket_link"
   end
 
   create_table "tours", force: :cascade do |t|
@@ -111,11 +116,10 @@ ActiveRecord::Schema.define(version: 20171029193732) do
     t.string "address"
     t.string "phone"
     t.string "website"
-    t.string "booking_contact"
-    t.string "production_contact"
-    t.string "sound_contact"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
+    t.string "contact"
   end
 
 end

@@ -2,51 +2,100 @@
 <main role="main" class="container">
   <p id="notice"><%= notice %></p>  
   <div class="starter-template">
-    <p class="lead"> <%= @tour.name %> </p>
     <%= form_for @tour do |f| %>
-      <p id="tour_name" data-type="text" data-resource="post" data-name="name" data-url="controller/action/<%= @tour.id %>" data-original-title="Name">
-        <%= f.text_field :name %>
-      </p>
-      <p id="tour_start_date" data-type="text" data-resource="post" data-name="start_date" data-url="controller/action/<%= @tour.id %>" data-original-title="start_date" >
-      Start Date: <%= f.date_select :start_date %>
-      </p>
-      <p id="tour_end_date" data-type="text" data-resource="post" data-name="end_date" data-url="controller/action/<%= @tour.id %>" data-original-title="end_date">
-      End Date: <%= f.date_select :end_date %>
-      </p>
-      <div class="actions" >
-        <%= f.submit %>
-      </div>
+      <form id="tour_data" data-type="text" data-resource="post" data-url="controller/action/<%= @tour.id %>" >
+        <p class="lead"  >
+          <%= f.text_field :name, id: :tour_name %>
+        </p>
+        <p>
+          Start Date: <%= f.date_select :start_date %>
+        </p>
+        <p>
+          End Date: <%= f.date_select :end_date %> 
+        </p>
+        <div class="actions" >
+          <%= f.submit %>
+        </div>
+      </form>
     <% end %>
+
     <div id="metrics">
        <!-- . 
        sum day per_diem_exp 
        sum day gas_exp 
        sum day hotel_exp 
        sum income exp
+
+       High/low attendees
+       High/low ticket price 
      -->
     </div>
       <table class="table table-striped">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">Date</th>
-            <th scope="col">City</th>
-            <th scope="col">Bus Call</th>
-            <th scope="col">Hotel Call</th>
-            <th scope="col">Notes</th>
+            <th scope="col">Day Information</th>
+            <th></th>
+            <th scope="col">Show Information</th>
              <th colspan="5"></th>
           </tr>
         </thead >
         <tbody>
-          <% @days.each do |d| %>
-            <%= form_for d do |f| %>
-              <tr >
-                <th scope="row"> <a href="/days/<%= d.id %>"> <%= d.date %> </a> </th>
-                <td ><%= d.city %></td>
-                <td ><%= f.time_field :bus_call_am %></td>
-                <td ><%= f.time_field :bus_call_hotel %></td>
-                <td > <textarea rows="2" cols="50" disabled=true > <%= d.notes %> </textarea></td>
-                <td><%= f.submit %></td>
-              </tr>
+        <br>
+        
+        <% @days.each do |d| %>
+          <%= form_for d do |f| %>
+          <form id="day_data" data-type="text" data-resource="post" data-url="controller/action/<%= d.id %>" >
+            <tr >
+              <td >
+                <%= f.text_field :city %>
+                <%= f.date_field :date %>
+                <br>
+                Notes:
+                <br>
+                <textarea rows="3" cols="20" > 
+                 <% f.text_area :notes %> 
+                </textarea>
+                <%= f.submit %>
+              </td>
+              <td>
+                Per Diem: $<%= f.number_field :per_diem_exp, as: :currency %>
+                <br>Gas: $<%= f.number_field :gas_exp, as: :currency  %>
+                <br>Hotel: $<%= f.number_field :hotel_exp, as: :currency  %> 
+                <br>Other Expenses: $<%= f.number_field :other_expenses, as: :currency  %>
+              </td>
+
+              <td>
+                <table class="table" >
+                  <thead class="thead-light">
+                    <th scope="row"> 
+                    <% schedules(d.id).each do |s| %>
+                      <% form_for s do |sch_f| %>
+                      <% if s != nil %>
+                        <td> 
+                          <%= link_to venue(s.venue_id).name, "/venues/"+s.venue_id.to_s %> 
+                          
+                          <p id="schedule_data" data-type="text" data-resource="post" data-url="controller/action/<%= s.id %>" >
+                            Status: <%= sch_f.text_field :show_status, id: :schedule_show_status %> 
+                            <br>
+                            Details:
+                            <br>
+                            <textarea rows="4" cols="40" > 
+                             <% sch_f.text_area :show_schedule %> 
+                            </textarea>
+                            <%= sch_f.submit %>
+                          </p>
+
+                        </td>
+                      <% end %> 
+                      <% end %>
+                     <% end %>
+
+                    </th>
+                  </thead>
+                </table>
+              </td>
+            </tr>
+            </form>
             <% end %>
           <% end %>
         </tbody>
@@ -56,7 +105,3 @@
 </main>
 <!-- /.container -->
 </body>
-</html>
-<script >
-
-</script>

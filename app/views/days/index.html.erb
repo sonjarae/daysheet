@@ -11,25 +11,40 @@
   <thead class="thead-light">
     <tr>
       <th></th>
-      <th>Tour</th>
+      <th>City</th>
       <th>Date</th>
-      <th>Number of shows</th>
+      <th>Tour</th>
+      <th></th>
       <th colspan="5"></th>
     </tr>
     </thead>
-    <form>
-      <tbody>
-        <% @days.each do |d| %>
-          <th scope="row"><%= link_to 'View/Edit', d %></th>
-          <td><%= tour(d.tour_id).name %></td>
-          <td><%= d.date %></td>
-          <td><%= schedules(d.id).count %></td>
-          
-          <td><%= link_to 'Delete', d, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-        <% end %> 
-      </tbody>
-    </form>
+
+    <tbody>
+      <% @days.each do |d| %>
+        <th scope="row"><%= link_to 'View/Edit', d %></th>
+        <td><%= d.city %></td>
+        <td><%= d.date %></td>
+        <td><%= tour(d.tour_id).name %></td>
+        <td>
+          <% Schedule.all.each do |s| %>
+            <% if s.day_id == d.id %>
+            <tbody>
+              <td>
+                 <%= venue(s.venue_id).name %> | 
+                 <%= link_to venue(s.venue_id).email, "mailto:"+venue(s.venue_id).email %> | 
+                 <%= link_to venue(s.venue_id).website, "http://"+venue(s.venue_id).website  %>
+                 <th></th>
+                 <th></th>
+                 <th></th>
+                 <th></th>
+              </td>
+            </tbody>
+            <%end%>
+          <%end%>
+        </td>
+        </tbody>
+      <% end %> 
+    </tbody>
   </table> 
   <!-- /. table -->
   </div>

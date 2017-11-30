@@ -9,7 +9,7 @@ require 'date'
 
 tours = Tour.create([{name:'SNST Winter 2017',start_date: Date.today,end_date: Date.today+15},{name:'SNST Spring 2018',start_date: Date.today+60,end_date: Date.today+90}])
 
-venues = Venue.create([{name: 'The Joint', address: '1100 w 87th St, Willow Springs, IL 60480', website: 'thejoint.com'},{name: 'High dive', address: '600 w chicago ave, chicago, IL', website: 'highdive.com'}])
+venues = Venue.create([{name: 'The Joint', contact: 'Joe', email: 'joe@thejoint.com', address: '1100 w 87th St, Willow Springs, IL 60480', website: 'thejoint.com'},{name: 'High dive', address: '600 w chicago ave, chicago, IL', website: 'highdive.com', contact: 'Mary', email: 'mary@highdive.com',}])
 
 tour = tours.first
 5.times do |ind|

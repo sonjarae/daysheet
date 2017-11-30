@@ -1,51 +1,57 @@
 <p id="notice"><%= notice %></p>
-
+<h2>Day <%= link_to day(@schedule.day_id).date, "/days/"+@schedule.day_id.to_s %>
+  of <%= tour(@schedule.tour_id).name %> </h2>
 <%= form_for @schedule do |f| %>
-<td class="actions" >
-  <%= f.submit %>
-</td>
-<br>
-<br>
-<p>
-  <strong>Day</strong>
-  <%= link_to day(@schedule.day_id).date, "/days/"+@schedule.day_id.to_s %>
-  of <strong>Tour</strong> <%= tour(@schedule.tour_id).name %> 
-</p>
-<p>
-  <strong>Show status:</strong>
-  <%= f.text_field :show_status %>
-</p>
-  <h3><%= link_to @venue.name, "/venues/"+@schedule.venue_id.to_s %></h3> 
-   <br>
-    <%= @venue.phone %><br>
-    Sound: <%= @venue.sound_contact %><br>
-    Production: <%= @venue.production_contact %><br>
-    Booking: <%= @venue.booking_contact %><br>
-    <%= link_to @venue.website, "http://"+@venue.website %><br>
-    <%= @venue.address %><br>
-    <img src="<%= @google_map %>"/> 
-</p>
-<p>
-  <strong>Times</strong>
-  <div id="times">
-    Load In: <%= f.time_field :load_in_time %>
-    Sound Check: <%= f.time_field :sound_check_time %>
-    Doors: <%= f.time_field :doors_time %> 
-    Set: <%= f.time_field :set_time %>
-  </div>
-<p>
-  <% if @schedule.income_id != nil %>
-    <h2>See <a href="/incomes/<%= @schedule.income_id %>">Settlement Sheet</strong></h2>
-  <% else %> 
-   <h2> <a href="/incomes/new">Add Settlement Sheet</strong></h2>
+  <p class="lead">
+    <%= f.text_field :show_status %> for <%= @venue.name %> 
+  </p>
+  <p>
+    <strong><%= link_to "View/Edit Venue", "/venues/"+@venue.id.to_s %></strong>
+      <%= @venue.phone %><br>
+      <%= link_to @venue.email, "mailto:"+ @venue.email %>,
+      <%= link_to @venue.website, "http://"+@venue.website %><br>
+  </p>
+  <p>
+    <strong>Contacts:</strong>
+    <br>
+    Booking <%= f.text_field :booking_contact %>
+    Production <%= f.text_field :production_contact %>
+    Sound <%= f.text_field :sound_contact %>
+  </p>
+  <p>
+    <strong>Tickets URL:</strong><br><%= f.text_field :ticket_link %>
+  </p>
+  <p>
+    <strong>Times:</strong>
+    <br>
+      Load In: <%= f.time_field :load_in_time %>
+      Sound Check: <%= f.time_field :sound_check_time %>
+      Doors: <%= f.time_field :doors_time %> 
+      Set: <%= f.time_field :set_time %>
+  </p>
+  <p>
+    <strong>Details</strong>
+    <br>
+    <textarea rows="5" cols="50">  
+      <% f.text_area :show_schedule, value: :show_schedule %>
+    </textarea>
+  </p>
+    <strong>Guest List</strong>
+    <br><textarea rows="5" cols="50">  
+      <% f.text_area :guest_list %>
+    </textarea>
+  <br>
+  <td class="actions" >
+    <%= f.submit %>
+  </td>
   <% end %>
-</p>
-<br>
-<td class="actions" >
-  <%= f.submit %>
-</td>
-<% end %>
-<br>
+  <% if @schedule.income_id != nil %>
+      <h2>See <a href="/incomes/<%= @schedule.income_id %>">Settlement Sheet</a></strong>
+      </h2>
+    <% else %> 
+     <h2> <a href="/incomes/new">Add Settlement Sheet</strong></h2>
+    <% end %>
+  <br>
 <%= link_to 'Edit', edit_schedule_path(@schedule) %> |
 <%= link_to 'Back', schedules_path %>
 <%= link_to 'Delete', @schedule, method: :delete, data: { confirm: 'Are you sure?' } %>
