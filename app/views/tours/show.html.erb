@@ -34,7 +34,7 @@
         <thead class="thead-dark">
           <tr>
             <th scope="col">Day Information</th>
-            <th></th>
+            <th>Expenses</th>
             <th scope="col">Show Information</th>
              <th colspan="5"></th>
           </tr>
@@ -63,33 +63,21 @@
                 <br>Hotel: $<%= f.number_field :hotel_exp, as: :currency  %> 
                 <br>Other Expenses: $<%= f.number_field :other_expenses, as: :currency  %>
               </td>
-
               <td>
                 <table class="table" >
                   <thead class="thead-light">
                     <th scope="row"> 
-                    <% schedules(d.id).each do |s| %>
-                      <% form_for s do |sch_f| %>
-                      <% if s != nil %>
-                        <td> 
-                          <%= link_to venue(s.venue_id).name, "/venues/"+s.venue_id.to_s %> 
-                          
-                          <p id="schedule_data" data-type="text" data-resource="post" data-url="controller/action/<%= s.id %>" >
-                            Status: <%= sch_f.text_field :show_status, id: :schedule_show_status %> 
-                            <br>
-                            Details:
-                            <br>
-                            <textarea rows="4" cols="40" > 
-                             <% sch_f.text_area :show_schedule %> 
-                            </textarea>
-                            <%= sch_f.submit %>
-                          </p>
-
-                        </td>
-                      <% end %> 
+                      <% schedules(d.id).each do |s| %>
+                        <%= link_to venue(s.venue_id).name, "/venues/"+s.venue_id.to_s %>
+                        <p>
+                          Status: <%= s.show_status %> 
+                          <br>
+                          Details:
+                          <br>
+                          <% s.show_schedule %> 
+                          Edit
+                        </p>
                       <% end %>
-                     <% end %>
-
                     </th>
                   </thead>
                 </table>
