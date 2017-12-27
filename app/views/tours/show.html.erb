@@ -31,6 +31,7 @@
        High/low ticket price 
      -->
     </div>
+<<<<<<< HEAD
 
     <table class="table table-striped">
       <thead class="thead-dark">
@@ -42,10 +43,23 @@
         </tr>
       </thead >
       <tbody>
+=======
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Day Information</th>
+            <th>Expenses</th>
+            <th scope="col">Show Information</th>
+             <th colspan="5"></th>
+          </tr>
+        </thead >
+        <tbody>
+>>>>>>> 9bd199c57ea4d7c0c8e43d0279b2103235ef385a
         <br>
         <% @days.each do |d| %>
           <%= form_for d do |f| %>
           <form id="day_data" data-type="text" data-resource="post" data-url="controller/action/<%= d.id %>" >
+<<<<<<< HEAD
           <tr >
             <td >
               City <%= f.text_field :city %>
@@ -91,6 +105,48 @@
             </td>
           </thead>
           
+=======
+            <tr >
+              <td >
+                <%= f.text_field :city %>
+                <%= f.date_field :date %>
+                <br>
+                Notes:
+                <br>
+                <textarea rows="3" cols="20" > 
+                 <% f.text_area :notes %> 
+                </textarea>
+                <%= f.submit %>
+              </td>
+              <td>
+                Per Diem: $<%= f.number_field :per_diem_exp, as: :currency %>
+                <br>Gas: $<%= f.number_field :gas_exp, as: :currency  %>
+                <br>Hotel: $<%= f.number_field :hotel_exp, as: :currency  %> 
+                <br>Other Expenses: $<%= f.number_field :other_expenses, as: :currency  %>
+              </td>
+              <td>
+                <table class="table" >
+                  <thead class="thead-light">
+                    <th scope="row"> 
+                      <% schedules(d.id).each do |s| %>
+                        <%= link_to venue(s.venue_id).name, "/venues/"+s.venue_id.to_s %>
+                        <p>
+                          Status: <%= s.show_status %> 
+                          <br>
+                          Details:
+                          <br>
+                          <% s.show_schedule %> 
+                          Edit
+                        </p>
+                      <% end %>
+                    </th>
+                  </thead>
+                </table>
+              </td>
+            </tr>
+            </form>
+            <% end %>
+>>>>>>> 9bd199c57ea4d7c0c8e43d0279b2103235ef385a
           <% end %>
         <% end %>
       </tbody>
