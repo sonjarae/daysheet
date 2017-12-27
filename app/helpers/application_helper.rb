@@ -21,12 +21,17 @@ module ApplicationHelper
 	end
 
 	def schedules (day_id) 
-		Schedule.where ( 'schedules.day_id = ' + day_id.to_s)
+		Schedule.where ( 'schedules.show_status = \'Confirmed\' AND schedules.day_id = ' + day_id.to_s)
+	end 
+
+	def schedules_uncomfirmed (day_id) 
+		Schedule.where ( 'schedules.show_status != \'Confirmed\' AND schedules.day_id = ' + day_id.to_s)
 	end 
 
 	def day_for_schedule_id (schedule_id) 
 		day = Day.select('date').joins("INNER JOIN schedules ON schedules.day_id = days.id and schedules.id = schedule_id")
 	end 
+
 
 	/# 
 

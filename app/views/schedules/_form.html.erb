@@ -1,37 +1,61 @@
-<%= form_with(model: schedule, local: true) do |form| %>
-  <% if schedule.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(schedule.errors.count, "error") %> prohibited this schedule from being saved:</h2>
-
-      <ul>
-      <% schedule.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :load_in_time %>
-    <%= form.datetime_select :load_in_time, id: :schedule_load_in_time %>
+<%= form_with(model: schedule, local: true) do |f| %>
+<% if schedule.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(schedule.errors.count, "error") %> prohibited this schedule from being saved:</h2>
+    <ul>
+    <% schedule.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
   </div>
+<% end %>
 
-  <div class="field">
-    <%= form.label :tour_id %>
-  <%= form.number_field :tour_id, id: :schedule_tour_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :venue_id %>
-  <%= form.number_field :venue_id, id: :schedule_venue_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :day_id %>
-    <%= form.number_field :day_id, id: :schedule_day_id %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+<table class="table table-striped">
+  <h2>Show Schedule</h2> 
+    <thead >
+      <tr>
+        <th></th>
+        <th>Venue</th>
+        <th>Status</th>
+        <th>Times</th>
+        <th>Guest List</th>
+        <th colspan="5"></th>
+      </tr>
+    </thead>
+    <tbody class=".table-striped">
+      <tr>
+        <td>
+          Tour: <% day(@schedule.tour_id) %>
+          Day: <% day(@schedule.day_id) %>
+        </td>
+        <td>
+          Lookup Venue 
+        </td>
+        <td>
+          <%= f.text_field :show_status %>
+        </td>
+        <td>
+          <div>  
+            Load In <%= f.time_field :load_in_time %>
+          </div>
+           <div>  
+            Sound Check <%= f.time_field :sound_check_time %> 
+           </div>
+           <div>  
+            Doors <%= f.time_field :doors_time %>
+           </div>
+           <div>  
+           Set <%= f.time_field :set_time %>
+          </div> 
+        </td>
+        <td>  
+          <textarea rows="2" cols="30" > <% f.text_area :guest_list, id: :guest_list, value: :guest_list.to_s %> 
+         </textarea>
+        </td>
+      </tr>
+       <td class="actions" >
+         <%= f.submit %> 
+        </td>
+    </tbody>
+  </table>
 <% end %>
