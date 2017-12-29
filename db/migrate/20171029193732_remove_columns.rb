@@ -27,6 +27,7 @@ class RemoveColumns < ActiveRecord::Migration[5.1]
     remove_column :venues,:booking_contact
     remove_column :venues,:production_contact
     remove_column :venues,:sound_contact
-
+    
+    add_column :schedules,:venue_name, :string
   end
 end

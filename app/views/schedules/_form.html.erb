@@ -1,61 +1,68 @@
 <%= form_with(model: schedule, local: true) do |f| %>
-<% if schedule.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(schedule.errors.count, "error") %> prohibited this schedule from being saved:</h2>
-    <ul>
-    <% schedule.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
+  <% if schedule.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(schedule.errors.count, "error") %> prohibited this schedule from being saved:</h2>
+      <ul>
+      <% schedule.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<table class="table table-striped">
-  <h2>Show Schedule</h2> 
-    <thead >
-      <tr>
-        <th></th>
-        <th>Venue</th>
-        <th>Status</th>
-        <th>Times</th>
-        <th>Guest List</th>
-        <th colspan="5"></th>
-      </tr>
-    </thead>
-    <tbody class=".table-striped">
-      <tr>
-        <td>
-          Tour: <% day(@schedule.tour_id) %>
-          Day: <% day(@schedule.day_id) %>
-        </td>
-        <td>
-          Lookup Venue 
-        </td>
-        <td>
-          <%= f.text_field :show_status %>
-        </td>
-        <td>
-          <div>  
-            Load In <%= f.time_field :load_in_time %>
-          </div>
-           <div>  
-            Sound Check <%= f.time_field :sound_check_time %> 
-           </div>
-           <div>  
-            Doors <%= f.time_field :doors_time %>
-           </div>
-           <div>  
-           Set <%= f.time_field :set_time %>
-          </div> 
-        </td>
-        <td>  
-          <textarea rows="2" cols="30" > <% f.text_area :guest_list, id: :guest_list, value: :guest_list.to_s %> 
-         </textarea>
-        </td>
-      </tr>
-       <td class="actions" >
-         <%= f.submit %> 
-        </td>
-    </tbody>
-  </table>
+  <h2>
+    <%= f.hidden_field :day_id, :value => @schedule.day_id %>
+    <%= f.hidden_field :tour_id, :value => @schedule.tour_id %>
+    <% if @schedule.day_id != nil %> 
+      Day <%= link_to day(@schedule.day_id).date, "/days/"+@schedule.day_id.to_s %> 
+    <% end %> 
+    <% if @schedule.tour_id != nil %> 
+      <%= tour(@schedule.tour_id).name %> 
+    <% end %> 
+  </h2>
+  <p class="lead">
+    <%= f.select :show_status, ['Pending', 'Confirmed','Cancelled']%>
+  </p>
+  <div id="container" >
+    <strong> Venue </strong>
+     <p id="venue"> <%= collection_select(:schedule, :venue_id, Venue.all, :id, :name, {:prompt => 'Change Venue'}) %> </p>
+    <p>
+      <strong>Contacts:</strong>
+      <p> Booking <%= f.text_field :booking_contact %></p>
+      <p> Production <%= f.text_field :production_contact %></p>
+      <p> Sound <%= f.text_field :sound_contact %></p>
+    </p>
+    <p>
+      <strong>Tickets URL:</strong>
+      <%= f.text_field :ticket_link %>
+    </p>
+    </p>
+      <strong>Times:</strong>
+      <p>Load In: <%= f.time_field :load_in_time %></p>
+      <p>Sound Check: <%= f.time_field :sound_check_time %></p>
+      <p>Doors: <%= f.time_field :doors_time %> </p>
+      <p>Set: <%= f.time_field :set_time %></p>
+    </p>
+    <br><strong>Details</strong>
+    <br> <textarea rows="5" cols="50">  
+      <% f.text_area :show_schedule, value: :show_schedule %>
+    </textarea>
+  <p>
+    <strong>Guest List</strong>
+    <br><textarea rows="5" cols="50">  
+      <% f.text_area :guest_list %>
+    </textarea>
+  </p>
+ </div>
+  <td class="actions" >
+    <%= f.submit %>
+  </td>
 <% end %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#day").Change(function(){
+ location.reload("#container");
+  });
+});
+</script>

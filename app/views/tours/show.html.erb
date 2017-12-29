@@ -1,25 +1,20 @@
-<body>
+<%= form_for @tour do |f| %>
 <main role="main" class="container">
   <p id="notice"><%= notice %></p>  
   <div class="starter-template">
-
-    <%= form_for @tour do |f| %>
-      <form id="tour_data" data-type="text" data-resource="post" data-url="controller/action/<%= @tour.id %>" >
-        <p class="lead"  >
-          <%= f.text_field :name, id: :tour_name %>
-        </p>
-        <p>
-          Start Date: <%= f.date_select :start_date %>
-        </p>
-        <p>
-          End Date: <%= f.date_select :end_date %> 
-        </p>
-        <div class="actions" >
-          <%= f.submit %>
-        </div>
-      </form>
-    <% end %>
-
+    <h1><%= f.text_field :name, id: :tour_name %></h1>
+    <p class="lead"  >
+      <%= link_to "Add Day to Tour", new_day_path(tour_id: @tour.id) %>
+    </p>
+    <p>
+      Start Date: <%= f.date_select :start_date %>
+    </p>
+    <p>
+      End Date: <%= f.date_select :end_date %> 
+    </p>
+    <div class="actions" >
+      <%= f.submit %>
+    </div>
     <div id="metrics">
        <!-- . 
        sum day per_diem_exp 
@@ -31,127 +26,56 @@
        High/low ticket price 
      -->
     </div>
-<<<<<<< HEAD
-
     <table class="table table-striped">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">Day Information</th>
-          <th scope="col">Show Information</th>
-          <th> Expenses </th>
-           <th colspan="5"></th>
+          <th scope="col">Day <strong>
+            | <%= link_to "New Day", new_day_path(tour_id: @tour.id) %></strong>
+          </th>
+          <th scope="col">Confirmed Schedules </th>
+          <th colspan="5"></th>
         </tr>
       </thead >
       <tbody>
-=======
-      <table class="table table-striped">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Day Information</th>
-            <th>Expenses</th>
-            <th scope="col">Show Information</th>
-             <th colspan="5"></th>
-          </tr>
-        </thead >
-        <tbody>
->>>>>>> 9bd199c57ea4d7c0c8e43d0279b2103235ef385a
-        <br>
-        <% @days.each do |d| %>
-          <%= form_for d do |f| %>
-          <form id="day_data" data-type="text" data-resource="post" data-url="controller/action/<%= d.id %>" >
-<<<<<<< HEAD
-          <tr >
-            <td >
-              City <%= f.text_field :city %>
-              <%= f.date_field :date %>
-              <br>
-              Notes:
-              <br>
-              <textarea rows="3" cols="20" > 
-               <% f.text_area :notes %> 
-              </textarea>
-              <%= f.submit %>
-            </td>
-          </form>
-
-            <td>
-              <table class="table" >
-                <thead class="thead-light">
-                  <th scope="row"> 
-                    <p> <%= schedules(d.id).count %> Shows </p>
-                    <p> <%= link_to "New Show", "/schedules/new/?day_id="+d.id.to_s+"&tour_id="+d.tour_id.to_s %></p>
-                    <% schedules(d.id).each do |s| %>
-                    <td> 
-                      <%= link_to venue(s.venue_id).name, "/schedules/"+s.id.to_s+"/" %>
-                       <br> Details:
-                       <br> <% s.show_schedule %>
-                      </p>
-                    </td>
-                   <% end %>
-                </th>
-            </td>
-            <td>
-              Per Diem: $<%= f.number_field :per_diem_exp, as: :currency%>
-              <br>Gas: $<%= f.number_field :gas_exp, as: :currency  %>
-              <br>Hotel: $<%= f.number_field :hotel_exp, as: :currency  %>
-              <br>Other Expenses: $<%= f.number_field :other_expenses, as: :currency  %>
-            </td>
-            <td>
-              <% @schedules_uncomfirmed(d.id).each do |u| %>
-                <%= link_to venue(s.venue_id).name, "/schedules/"+u.id.to_s+"/" %>
-                 <br> <% u.show_status %>
-                 <br> <% u.show_schedule %>
-              <% end %>
-            </td>
+      <% @days.each do |d| %>
+        <%= form_for d do |f| %>
+        <tr >
+          <td >
+            <h3><%= link_to d.city,  "/days/"+d.id.to_s+"/" %></h3> 
+            <%= d.date %>
+            <br>Per Diem: $<%= d.per_diem_exp %>
+            <br>Gas: $<%= d.gas_exp %>
+            <br>Hotel: $<%= d.hotel_exp %>
+            <br>Other Exp: $<%= d.other_expenses %>
+          </td>
+          <!-- . see schedule info -->
+          <td>
+          <table class="table" >
+            <thead class="thead-light">
+            <th scope="row">
+              <%= schedules_for_day(d.id).count %> shows 
+              <br><%= link_to "Add Schedule", new_schedule_path(day_id: d.id, tour_id: d.tour_id) %>
+              <br><% schedules_for_day(d.id).each do |s| %>
+                <td>
+                  <%= venue(s.venue_id).name %>
+                  <%= link_to "(view/edit)", "/schedules/"+s.id.to_s+"/" %>
+                  <br> Details: <br>
+                  <%= simple_format(s.show_schedule) %>
+                  <%= simple_format(s.guest_list) %>
+                </td>
+             <% end %>
+            </th> 
           </thead>
-          
-=======
-            <tr >
-              <td >
-                <%= f.text_field :city %>
-                <%= f.date_field :date %>
-                <br>
-                Notes:
-                <br>
-                <textarea rows="3" cols="20" > 
-                 <% f.text_area :notes %> 
-                </textarea>
-                <%= f.submit %>
-              </td>
-              <td>
-                Per Diem: $<%= f.number_field :per_diem_exp, as: :currency %>
-                <br>Gas: $<%= f.number_field :gas_exp, as: :currency  %>
-                <br>Hotel: $<%= f.number_field :hotel_exp, as: :currency  %> 
-                <br>Other Expenses: $<%= f.number_field :other_expenses, as: :currency  %>
-              </td>
-              <td>
-                <table class="table" >
-                  <thead class="thead-light">
-                    <th scope="row"> 
-                      <% schedules(d.id).each do |s| %>
-                        <%= link_to venue(s.venue_id).name, "/venues/"+s.venue_id.to_s %>
-                        <p>
-                          Status: <%= s.show_status %> 
-                          <br>
-                          Details:
-                          <br>
-                          <% s.show_schedule %> 
-                          Edit
-                        </p>
-                      <% end %>
-                    </th>
-                  </thead>
-                </table>
-              </td>
-            </tr>
-            </form>
-            <% end %>
->>>>>>> 9bd199c57ea4d7c0c8e43d0279b2103235ef385a
-          <% end %>
-        <% end %>
+        </table>
+        </td>
+       </tr> 
+      </form> <!-- end form for @tour  -->
+      <% end %> <!-- end days.each  -->
+      <% end %> <!-- end form for days  -->
       </tbody>
     </table>
   </div>
 </main>
-<!-- /.container -->
-</body>
+<%= link_to 'Back', tours_path %>
+<%= link_to 'Delete', @tour, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>

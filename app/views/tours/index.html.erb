@@ -2,16 +2,22 @@
 <main role="main" class="container">
   <p id="notice"><%= notice %></p>  
   <div class="starter-template">
+    <p class="lead">
+      <strong>Welcome!</strong> I created Daysheet to help musicians manage their tours more easily. 
+    </p>
+     <h2><%= link_to 'Start a New Tour', new_tour_path %></h2>
+
      <table>
       <tbody>
           <% Tour.all.each do |t| %>
-            <tr>
-              <td><a href="/tours/<%= t.id %>"><%= t.name %></td>
-           <% end %> 
+          <tr>
+            <td>
+              <a href="/tours/<%= t.id %>"><%= t.name %>
+            </td>
           </tr>
+          <% end %> 
       </tbody>
      </table>
-     <%= link_to 'New Tour', new_tour_path %>
   </div>
 </main>
 </body>

@@ -11,17 +11,12 @@ class DaysController < ApplicationController
   # GET /days/1.json
   def show
     @tour = Tour.find( @day.tour_id.to_s )
-    @schedules = Schedule.where( ' day_id = ' + @day.id.to_s )
-    ids = []
-    @schedules.each do |s| 
-      ids.push(s.id.to_s)
-    end 
     @income = Income.where ('schedule_id => ids')
   end
 
   # GET /days/new
   def new
-    @day = Day.new
+    @day = Day.new(tour_id: params[:tour_id])
   end
 
   # GET /days/1/edit

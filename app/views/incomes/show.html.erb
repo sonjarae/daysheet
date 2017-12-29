@@ -4,8 +4,10 @@
   <div class="starter-template">
   <p class="lead">Total Income: $<%= @total_income %> </p> 
   <h2> 
-    for Day <%= day_for_schedule_id(@income.schedule_id) %>
-    <%= tour(@income.tour_id).name %> 
+    <%= @day.date %> 
+    <%= link_to @day.city, "/days/"+@schedule.day_id.to_s %><br>
+    <%= link_to venue(@income.schedule_id).name, "/schedules/"+@income.schedule_id.to_s %><br>
+    <%= link_to tour(@income.tour_id).name, "/tours/"+@income.tour_id.to_s %>
   </h2> 
   <form>
   <%= form_for @income do |f| %>
