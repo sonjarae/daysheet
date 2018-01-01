@@ -3,10 +3,8 @@
   <p id="notice"><%= notice %></p>  
   <div class="starter-template">
     <p class="lead">
-      <strong>Welcome!</strong> I created Daysheet to help musicians manage their tours more easily. 
+      <strong>Welcome!</strong> Daysheet helps artists manage their tours more easily.<%= link_to ' Start a New Tour ', new_tour_path %>
     </p>
-     <h2><%= link_to 'Start a New Tour', new_tour_path %></h2>
-
      <table>
       <tbody>
           <% Tour.all.each do |t| %>
