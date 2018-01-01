@@ -57,7 +57,8 @@ tours.each do |t|
 			sound_check_time: Time.parse(day_num.to_s + " 09:00:00 +0100").strftime('%l %M %p'),
     		doors_time: Time.parse(day_num.to_s + " 10:00:00 +0100").strftime('%l %M %p '),
     		set_time: Time.parse(day_num.to_s + " 11:30:00 +0100").strftime('%l %M %p '),
-    		show_schedule: 'Weezer 6pm SNST 7:15 Foo Fighters 8:30 ' )
+    		show_schedule: "Weezer 6pm\n SNST 7:15\n Foo Fighters 8:30\n",
+    		guest_list: "John's mom\n Sarah Stapp\n The guys from Atlantic\n" )
 
 		inc = Income.create(tour_id: t.id, guarantee: 300, schedule_id: sch.id)
 
