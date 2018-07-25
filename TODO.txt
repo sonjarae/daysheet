@@ -1,2 +1,4 @@
-Make 'show' pages editable for tours, schedules, incomes, venues
-Make days page editable
+
+* Add search to header
+* Lookup to venue 
+* User login 
