@@ -1,104 +1,80 @@
-<body>
+<%= form_for @day do |f| %>
 <main role="main" class="container">
   <p id="notice"><%= notice %></p>  
   <div class="starter-template">
     <center>
-      <p class="lead"><%= @day.date %> of <%= tour(@day.tour_id).name %></p>
-    </center> 
-    <form>
-     <%= form_for @day do |f| %>
+      <p class="lead">Show Schedule for <%= @day.date %> of <%= tour(@day.tour_id).name %></p>
+    </center>
      <table class="table">
       <tbody>
-        <tr>
-          <td> 
-            <h2>Send to Gmail</h2>
-            <h2>Export</h2>
-            <%= f.submit %> 
-          </td>
-          <td>
-            <strong>Day Info</strong> <!-- Info for Day -->
-            <br>City: <%= f.text_field :city %>
-            <br>Date: <%= f.text_field :date %>
-            <br><%= f.time_zone_select(:time_zone, ActiveSupport::TimeZone.us_zones, default: "Pacific Time (US & Canada)") %>
-            <br> <br> Notes: 
-              <textarea rows="2" cols="50"> 
-                <% f.text_area :notes %> 
-              </textarea>
-          </td>
-          <td>
-            <strong>Expenses</strong><!-- Expenses for Day -->
-            <br>Per Diem: $<%= f.number_field :per_diem_exp, as: :currency %>
-            <br>Gas: $<%= f.number_field :gas_exp, as: :currency  %>
-            <br>Hotel: $<%= f.number_field :hotel_exp, as: :currency  %> 
-            <br>Other Expenses: $<%= f.number_field :other_expenses, as: :currency  %> 
-          </td>
-          <td> <%= f.submit %> </td>
-        <tr>
-      </tbody>
-    </table>
-   <%end%>
- </form>
-  <br>
+      <tr>
+        <td> 
+          <h2>Send to Gmail</h2>
+          <h2>Export</h2>
+        </td>
+        <td>
+          <strong>Day Info</strong> <!-- Info for Day -->
+          <br>City: <%= f.text_field :city %>
+          <br>Date: <%= f.text_field :date %>
+          <p>Day Notes:</p>
+          <textarea rows="2" cols="50"> 
+            <% f.text_area :notes %>
+          </textarea>
+        </td>
+        <td>
+          <strong>Expenses</strong><!-- Expenses for Day -->
+          <br>Per Diem: $<%= f.number_field :per_diem_exp, as: :currency %>
+          <br>Gas: $<%= f.number_field :gas_exp, as: :currency  %>
+          <br>Hotel: $<%= f.number_field :hotel_exp, as: :currency  %> 
+          <br>Other Expenses: $<%= f.number_field :other_expenses, as: :currency  %> 
+        </td>
+        <td> <%= f.submit %> </td>
+      <tr>
+    </tbody>
+  </table>
   <!-- Schedules for Day -->
-    <table class="table table-striped">
-    <h2>Show Schedule</h2> 
-      <thead >
-        <tr>
-          <th></th>
-          <th></th>
-          <th>Venue</th>
-          <th>Status</th>
-          <th>Times</th>
-          <th>Guest List</th>
-          <th colspan="5"></th>
-        </tr>
-      </thead>
-      <form>
-        <tbody class=".table-striped">
-          <% @schedules.each do |s| %>
-            <%= form_for s do |f| %>
-              <tr>
-                <td>
-                  <%= f.submit %>
-                </td>
-                <td>
-                  <%= link_to "View/Edit", "/schedules/"+s.id.to_s  %>
-                </td>
-                <td>
-                  <%= venue(s.venue_id).name %>
-                </td>
-                <td id="sch_show_status" data-type="text" data-resource="post" data-name="show_status" data-url="controller/action/<%= s.id %>" data-original-title="Show Status">
-                  <%= f.text_field :show_status %>
-                </td>
-                <td>
-                  <div id="sch_load_in_time" data-type="text" data-resource="post" data-name="load_in_time" data-url="controller/action/<%= s.id %>" data-original-title="Load Time">  
-                    Load In <%= f.time_field :load_in_time %>
-                  </div>
-                   <div id="sch_sound_check_time" data-type="text" data-resource="post" data-name="sound_check_time" data-url="controller/action/<%= s.id %>" data-original-title="Sound Time">  
-                    Sound Check <%= f.time_field :sound_check_time %> 
-                   </div>
-                   <div id="sch_doors_time" data-type="text" data-resource="post" data-name="doors_time" data-url="controller/action/<%= s.id %>" data-original-title="Doors Time">  
-                    Doors <%= f.time_field :doors_time %>
-                   </div>
-                   <div id="sch_set_time" data-type="text" data-resource="post" data-name="set_time" data-url="controller/action/<%= s.id %>" data-original-title="Set Time">  
-                   Set <%= f.time_field :set_time %>
-                  </div> 
-                </td>
-                <td id="sch_guest_list" data-type="text" data-resource="post" data-name="guest_list" data-url="controller/action/<%= s.id %>" data-original-title="Guest List">  
-                  <textarea rows="2" cols="30" > 
-                   <% f.text_area :guest_list, id: :guest_list, value: :guest_list.to_s %> 
-                 </textarea>
-                </td>
-                <td class="actions" >
-                 <%= f.submit %> 
-                </td>
-              </tr>
-            <% end %> 
-          <% end %> 
-        </tbody>
-      </form>
+  <table class="table table-striped">
+    <p class="lead">
+      <%= link_to "New Schedule", new_schedule_path(day_id: @day.id, tour_id: @day.tour_id) %>
+    </p>
+    <thead >
+      <tr>
+        <th>Venue</th>
+        <th>Status</th>
+        <th>Times</th>
+        <th>Schedule</th>
+        <th>Guest List</th>
+        <th colspan="5"></th>
+      </tr>
+    </thead>
+    <tbody class=".table-striped">
+      <% schedules_for_day(@day.id).each do |s| %>
+      <tr>
+        <td>
+        <h2><%= link_to venue(s.venue_id).name, "/schedules/"+s.id.to_s  %></h2>
+        </td>
+        <td>
+         <%= s.show_status %>
+        </td>
+        <td>
+          <p>Load In <%= s.load_in_time.to_s%></p>
+          <p>Sound Check <%= s.sound_check_time.to_s%> </p>
+          <p>Doors <%= s.doors_time.to_s%></p>
+          <p>Set <%= s.set_time.to_s%></p>
+        </td>
+        <td>
+          <%= simple_format(s.show_schedule) %>
+        </td>
+        <td>
+          <%= simple_format(s.guest_list) %>
+        </td>
+      </tr>
+      <% end %> 
+      </tbody>
     </table> 
     <!-- /. table -->
   </div>
 </main>
-</body>
+<%= link_to 'Back', schedules_path %>
+<%= link_to 'Delete', @day, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>

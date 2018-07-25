@@ -1,104 +1,66 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 require 'date'
+require 'time'
 
 tours = Tour.create([{name:'SNST Winter 2017',start_date: Date.today,end_date: Date.today+15},{name:'SNST Spring 2018',start_date: Date.today+60,end_date: Date.today+90}])
 
-venues = Venue.create([{name: 'The Joint', contact: 'Joe', email: 'joe@thejoint.com', address: '1100 w 87th St, Willow Springs, IL 60480', website: 'thejoint.com'},{name: 'High dive', address: '600 w chicago ave, chicago, IL', website: 'highdive.com', contact: 'Mary', email: 'mary@highdive.com',}])
+venues = Venue.create([
+{name: 'Schubas(Chicago)', contact: 'Joe', email: 'joe@thejoint.com', address: '3159 N Southport Ave, Chicago, IL 60657', website: 'schubas.com'},
+{name: 'Firebird(MO)', address: '2706 Olive St, St. Louis, MO 63103', website: 'firebird.com', contact: 'Mary', email: 'mary@firebirdmo.com'},
+{name: 'Metro(Chicago)', address: '3730 N Clark St, Chicago, IL 60613', website: 'metrochicago.com', contact: 'Doug' },
+{name: 'Bottom Lounge(Chicago)', address: '1375 W Lake St, Chicago, IL 60607', website: 'bottomlounge.com', contact: 'Brian Peterson' },
+{name: 'Cowboy Monkey(Champaign)', address: '6 Taylor St, Champaign, IL 61820	', contact: 'John Isberg' },
+{name: 'First Avenue (Minneapolis)', address: '701 N 1st Ave, Minneapolis, MN 55403'},
+{name: 'Newport Music Hall(Colombus)', address: '1722 N High St, Columbus, OH 43201', website: 'newporthall.com', contact: 'Angela' },
+{name: 'The Fillmore(Detroit)', address: '2115 Woodward Ave, Detroit, MI 48201', website: 'fillmore.com', contact: 'Dylan Richards' },
+{name: 'The Echo(LA)', address: '1822 Sunset Blvd, Los Angeles, CA 90026', website: 'echoLA.com' },
+{name: 'Culture Room (Fort Lauderdale)', address: '3045 N Federal Hwy, Fort Lauderdale, FL 33306'}
+]) 
 
-tour = tours.first
-5.times do |ind|
-	p "in loop"
-	ven = venues.first
-	venue_name = ven.name
-	p ven
-
-	day_num = Date.today+ind
+i = 0
+tours.each do |t|
+	i+=1
+	day_num = Date.today+i
 	bus_call_str = day_num.to_s + " 09:00:00 +0100"
 	hotel_call_str = day_num.to_s + " 23:00:30 +0100"
 
-	day = Day.create(
-		date: day_num, 
-		tour_id: tour.id,
-		city: "Chicago",
-		bus_call_am: Time.parse(bus_call_str),
-		bus_call_hotel: Time.parse(hotel_call_str),
-		notes: "notes \n\n notes \n\n notes\n\n ",
-		per_diem_exp: 20.00,
-		gas_exp: 25.00,
-		hotel_exp: 90.00,
-		other_expenses: 50.00
-	)
+	venues.each do |v|
+		city_name = v.name.match(/\((.*)\)/)[1]
+		day = Day.create(
+			date: day_num,
+			tour_id: t.id,
+			city: city_name,
+			bus_call_am: Time.parse(bus_call_str),
+			bus_call_hotel: Time.parse(hotel_call_str),
+			notes: "notes",
+			per_diem_exp: 30.00,
+			gas_exp: 35.00,
+			hotel_exp: 100.00,
+			other_expenses: 60.00
+		)
 
-	p day
+		show_status = ''
+		if i<10
+			show_status = 'Confirmed'
+		elsif i<5
+			show_status = 'Pending'
+		else 
+			show_status = 'Cancelled'
+		end
 
-	show_status = ''
-	p "getting show status"
-	if ind<10
-		show_status = 'Confirmed'
-	elsif ind<18
-		show_status = 'Planned'
-	else 
-		show_status = 'Cancelled'
+		sch = Schedule.create(
+			tour_id:t.id,
+			venue_id:v.id, 
+			day_id:day.id,
+			show_status: show_status,
+			sound_check_time: Time.parse(day_num.to_s + " 09:00:00 +0100").strftime('%l %M %p'),
+    		doors_time: Time.parse(day_num.to_s + " 10:00:00 +0100").strftime('%l %M %p '),
+    		set_time: Time.parse(day_num.to_s + " 11:30:00 +0100").strftime('%l %M %p '),
+    		show_schedule: "Weezer 6pm\n SNST 7:15\n Foo Fighters 8:30\n",
+    		guest_list: "John's mom\n Sarah Stapp\n The guys from Atlantic\n" )
+
+		inc = Income.create(tour_id: t.id, guarantee: 300, schedule_id: sch.id)
+
 	end
-
-	sch = Schedule.create(tour_id:tour.id, venue_id:ven.id, day_id:ind, show_number:ind, show_status: show_status)
-	p sch
-	inc = Income.create(tour_id:tour.id, guarantee:300, schedule_id:sch.id)
-	p inc
 end
-
-tour = tours.second
-3.times do |ind|
-
-	ven = venues.second
-	venue_name = ven.name
-	p ven
-
-	day_num = Date.today+ind
-	bus_call_str = day_num.to_s + " 09:00:00 +0100"
-	hotel_call_str = day_num.to_s + " 23:00:30 +0100"
-
-	day = Day.create(
-		date: day_num, 
-		tour_id: tour.id,
-		city: "Los Angeles",
-		bus_call_am: Time.parse(bus_call_str),
-		bus_call_hotel: Time.parse(hotel_call_str),
-		notes: "notes \n\n notes \n\n notes\n\n ",
-		per_diem_exp: 30.00,
-		gas_exp: 35.00,
-		hotel_exp: 100.00,
-		other_expenses: 60.00
-	)
-
-	p day
-
-	show_status = ''
-	p "getting show status"
-	if ind<10
-		show_status = 'Confirmed'
-	elsif ind<18
-		show_status = 'Planned'
-	else 
-		show_status = 'Cancelled'
-	end
-
-	sch = Schedule.create(
-		tour_id:tour.id, 
-		venue_id:ven.id, 
-		day_id:ind, 
-		show_number:ind, 
-		show_status: show_status,
-		guest_list: 'sonja, your mom' )
-	p sch
-
-	inc = Income.create(tour_id:tour.id, guarantee:300, schedule_id:sch.id)
-	p inc
-end
-

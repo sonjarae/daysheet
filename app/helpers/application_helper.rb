@@ -16,35 +16,18 @@ module ApplicationHelper
 		Schedule.find(id)
 	end
 
-	def income (id)
-		Income.where ( 'incomes.schedule_id = ' + id.to_s)
+	def income (schedule_id)
+		Income.where ( 'incomes.schedule_id = ' + schedule_id.to_s)
 	end
 
-	def schedules (day_id) 
-		Schedule.where ( 'schedules.day_id = ' + day_id.to_s)
+	def schedules_for_day (day_id) 
+		Schedule.where ( 'schedules.show_status = \'Confirmed\' AND schedules.day_id = ' + day_id.to_s)
 	end 
 
 	def day_for_schedule_id (schedule_id) 
 		day = Day.select('date').joins("INNER JOIN schedules ON schedules.day_id = days.id and schedules.id = schedule_id")
 	end 
-
-	/# 
-
-Author.left_outer_joins(:posts).distinct.select('authors.*, COUNT(posts.*) AS posts_count').group('authors.id')
-
-	def income (schedule_id)
-		Schedule.where ( 'incomes.schedule_id = ' + schedule_id.to_s)
-	end
-	.#/
-
-	/#
-	turn into joins
-	def day_of_tour (this_date, start_date)
-	  	Day.where( 'days.date BETWEEN ? AND ?', this_date , start_date ).count
-	end
-
-	#/
-
+	
 	def get_metrics
 		id = Tour.where("Active != TRUE").first.id
 		@days_this_tour = Day.where("tour_id = id").count

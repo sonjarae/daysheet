@@ -11,19 +11,20 @@
     </div>
   <% end %>
 
+  <p class="lead">
+    <%= form.hidden_field :schedule_id, :value => @income.schedule_id %>
+    <%= form.hidden_field :tour_id, :value => @income.tour_id %>
+    <h2> 
+    <%= @day.date %> 
+    <%= link_to @day.city, "/days/"+@schedule.day_id.to_s %><br>
+    <%= link_to venue(@income.schedule_id).name, "/schedules/"+@income.schedule_id.to_s %><br>
+    <%= link_to tour(@income.tour_id).name, "/tours/"+@income.tour_id.to_s %>
+  </h2> 
+  </p>
+
   <div class="field">
     <%= form.label :guarantee %>
     <%= form.text_field :guarantee, id: :income_guarantee %>
-  </div>
-
-  <div class="field">
-    <%= form.label :tour %>
-    <%= form.number_field :tour_name, id: :income_tour_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :day %>
-    <%= form.number_field :day_id, id: :income_day_id %>
   </div>
 
   <div class="actions">

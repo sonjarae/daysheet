@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20171029193732) do
     t.string "sound_contact"
     t.string "show_schedule"
     t.string "ticket_link"
+    t.string "venue_name"
   end
 
   create_table "tours", force: :cascade do |t|

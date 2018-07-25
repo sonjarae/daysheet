@@ -28,7 +28,7 @@
       <tr>
         <th scope="row"><%= link_to 'View/Edit', i %></th>
         <td><%= tour(i.tour_id).name %></td>
-        <td><%= link_to 'Show', '/schedules/'+ i.schedule_id.to_s %></td>
+        <td><%= link_to 'Schedule (view/edit), '/schedules/'+ i.schedule_id.to_s %></td>
         <td><%= i.guarantee %></td>
         <td><%= i.ticket_price %></td>
         <td><%= i.attendance_total %></td>

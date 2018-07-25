@@ -31,8 +31,8 @@
             <tbody>
               <td>
                  <%= venue(s.venue_id).name %> | 
-                 <%= link_to venue(s.venue_id).email, "mailto:"+venue(s.venue_id).email %> | 
-                 <%= link_to venue(s.venue_id).website, "http://"+venue(s.venue_id).website  %>
+                 <%= link_to venue(s.venue_id).email, "mailto:"+venue(s.venue_id.to_s).email %> | 
+                 <%= link_to venue(s.venue_id).website, "http://"+venue(s.venue_id.to_s).website  %>
                  <th></th>
                  <th></th>
                  <th></th>
