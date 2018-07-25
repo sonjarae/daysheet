@@ -21,7 +21,10 @@ class DaysController < ApplicationController
 
   # GET /days/new
   def new
-    @day = Day.new
+    @day = Day.new(new_day_params)
+    if(params[:tour_id] != nil)
+      @this_tour = Tour.find(params[:tour_id]).name
+    end
   end
 
   # GET /days/1/edit
@@ -72,6 +75,12 @@ class DaysController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_day
       @day = Day.find(params[:id])
+    end
+
+    def new_day_params
+      params.permit(:date, :tour_id, :notes, :city, 
+        :day_of_tour, :bus_call_hotel, :bus_call_am, :venue_id,
+        :per_diem_exp, :gas_exp, :hotel_exp, :other_expenses)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

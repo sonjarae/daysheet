@@ -10,19 +10,19 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :date %>
-    <%= form.date_select :date, id: :day_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :tour_id %>
-    <%= form.number_field :tour_id, id: :day_tour_id %>
+   <div class="field">
+    <%= form.label @this_tour %>
+    <%= hidden_field(:day, :tour_id, :value => params[:tour_id]) %>
   </div>
 
   <div class="field">
     <%= form.label :city %>
     <%= form.text_field :city, id: :day_city %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_select :date, id: :day_date %>
   </div>
 
   <div class="field">
@@ -37,7 +37,7 @@
 
   <div class="field">
     <%= form.label :notes %>
-    <%= form.text_field :notes, id: :day_notes %>
+    <%= form.text_area :notes, size: "60x12", id: :day_notes %>
   </div>
 
   <!--
