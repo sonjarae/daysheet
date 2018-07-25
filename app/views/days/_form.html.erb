@@ -9,12 +9,10 @@
       </ul>
     </div>
   <% end %>
-  <center> <p class="lead"  >
-   <%= link_to tour(@day.tour_id).name, tour_path(id: @day.tour_id) %> 
-  </p></center>
+
+  <center><%= link_to tour(@day.tour_id).name, tour_path(id: @day.tour_id) %> </center>
 
    <div class="field">
-    <%= form.label @this_tour %>
     <%= hidden_field(:day, :tour_id, :value => params[:tour_id]) %>
   </div>
 
