@@ -38,7 +38,7 @@ gem 'bootstrap','4.0.0.beta2'
 gem 'bootstrap-editable-rails'
 gem 'jquery-rails'
 gem 'nodejs-rails'
-gem 'yarn'
+gem 'yarn','0.1.1'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
