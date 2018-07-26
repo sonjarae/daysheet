@@ -7,7 +7,7 @@ end
 
 ruby '2.4.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'bundler', '1.16.3'
+gem 'bundler'
 gem 'simple_form'
 gem 'rails', '~> 5.1.1'
 # Use postgresql as the database for Active Record
@@ -34,11 +34,11 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'bootstrap-sass', '3.3.7'
-gem 'bootstrap','4.0.0.beta2'
+gem 'bootstrap', '~> 4.1.1'
 gem 'bootstrap-editable-rails'
 gem 'jquery-rails'
-gem 'nodejs-rails'
 gem 'yarn','0.1.1'
+gem 'execjs'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
