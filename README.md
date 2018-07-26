@@ -17,7 +17,7 @@ bundle exec rake db:create
 * Database initialization
 bin/rails db:migrate db:seed RAILS_ENV=development 
 
-* Start the server:  rails s
+* Start the server:  rails s (ctrl + c to stop)
 
 * Go to http://localhost:3000/ 
 
