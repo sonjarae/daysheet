@@ -1,1 +1,1 @@
-web: bundle exec rails server -p $PORT -e --environment=development
+web: bundle exec rails server -p $PORT -e --environment=production
