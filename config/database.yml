@@ -79,5 +79,5 @@ test:
 production:
   <<: *default
   database: daysheet_production
-  username: daysheet
-  password: <%= ENV['DAYSHEET_DATABASE_PASSWORD'] %>
+ # username: daysheet
+ # password: <%= ENV['DAYSHEET_DATABASE_PASSWORD'] %>
