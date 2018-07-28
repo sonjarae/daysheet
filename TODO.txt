@@ -1,4 +1,15 @@
 
-* Add search to header
-* Lookup to venue 
-* User login 
+* Search 
+
+* Generate PDF
+ ** Email Daysheet 
+ ** Add to google cal 
+
+* User login  
+
+* Unit tests 
+
+* Where to store secret creds and constants
+
+* Improve UI and UX 
+
