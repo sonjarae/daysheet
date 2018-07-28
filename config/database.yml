@@ -20,10 +20,13 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  database: d74l7hnb2npqhr
+  url: postgres://bmvdqjiydlwqeg:943d3e1a4fff8a938b9c062867125b554859b313934747d8ff2ec004296bd6e2@ec2-54-243-185-123.compute-1.amazonaws.com:5432/d74l7hnb2npqhr
+  username: bmvdqjiydlwqeg
+  password: 943d3e1a4fff8a938b9c062867125b554859b313934747d8ff2ec004296bd6e2
 
 development:
   <<: *default
-  database: daysheetdev
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
@@ -56,7 +59,6 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: daysheetstaging
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
@@ -78,6 +80,3 @@ test:
 #
 production:
   <<: *default
-  database: daysheetprod
- # username: daysheet
- # password: <%= ENV['DAYSHEET_DATABASE_PASSWORD'] %>
