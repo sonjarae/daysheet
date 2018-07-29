@@ -3,12 +3,18 @@ class ToursController < ApplicationController
   # GET /tours
   # GET /tours.json
   def index
-    p "in tours_controller"
-    
+    # Initialize Days for Tour
     if @tour != nil
       @days = Day.where("tour_id = " + @tour.id.to_s ).all
     else 
       @days = []
+    end
+
+    # Return the proper tours
+    if params[:search]
+      @tours = Tour.search(params[:search]).order("created_at DESC")
+    else
+      @tours = Tour.all.order("created_at DESC")
     end
 
     # @current_tour = Tour.where( 'tours.end_date BETWEEN ? AND ?', Date.today, 1.month.from_now ).order('start_date DESC').first

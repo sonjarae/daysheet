@@ -30,9 +30,11 @@
             <% if s.day_id == d.id %>
             <tbody>
               <td>
-                 <%= venue(s.venue_id).name %> | 
-                 <%= link_to venue(s.venue_id).email, "mailto:"+venue(s.venue_id.to_s).email %> | 
-                 <%= link_to venue(s.venue_id).website, "http://"+venue(s.venue_id.to_s).website  %>
+                <% if venue(s.venue_id) != nil %>
+                   <%= venue(s.venue_id).name %> | 
+                   <%= link_to venue(s.venue_id).email, "mailto:"+venue(s.venue_id.to_s).email %> | 
+                   <%= link_to venue(s.venue_id).website, "http://"+venue(s.venue_id.to_s).website  %>
+                 <%end%>
                  <th></th>
                  <th></th>
                  <th></th>

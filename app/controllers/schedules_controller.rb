@@ -4,7 +4,11 @@ class SchedulesController < ApplicationController
   # GET /schedules
   # GET /schedules.json
   def index
-    @schedules = Schedule.all
+     if params[:search]
+        @schedules = Schedule.search(params[:search]).order("created_at DESC")
+      else
+      @schedules = Schedule.all.order("created_at DESC")
+    end
   end
 
   # GET /schedules/1

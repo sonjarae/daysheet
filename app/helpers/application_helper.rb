@@ -1,7 +1,9 @@
 module ApplicationHelper
 
 	def venue(id)
-		Venue.find (id)
+		if(id != nil) 
+			Venue.find (id)
+		end
 	end
 
 	def tour (id)

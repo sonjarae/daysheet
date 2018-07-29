@@ -4,7 +4,11 @@ class DaysController < ApplicationController
   # GET /days
   # GET /days.json
   def index
-    @days = Day.all
+    if params[:search]
+      @days = Day.search(params[:search]).order("created_at DESC")
+    else
+      @days = Day.all.order("created_at DESC")
+    end
   end
 
   # GET /days/1
@@ -80,8 +84,8 @@ class DaysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def day_params
-      params.require(:day).permit(:date, :tour_id, :notes, :city, 
+      params.require(:day).permit(:name, :date, :tour_id, :notes, :city, 
         :day_of_tour, :bus_call_hotel, :bus_call_am, :venue_id,
-        :per_diem_exp, :gas_exp, :hotel_exp, :other_expenses)
+        :per_diem_exp, :gas_exp, :hotel_exp, :other_expenses, :search)
     end
 end

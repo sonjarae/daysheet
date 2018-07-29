@@ -4,7 +4,10 @@ class IncomesController < ApplicationController
   # GET /incomes
   # GET /incomes.json
   def index
-    @incomes = Income.all
+    if params[:search]
+      @incomes = Income.search(params[:search]).order("created_at DESC")
+    else
+      @incomes = Income.all
   end
 
   # GET /incomes/1
